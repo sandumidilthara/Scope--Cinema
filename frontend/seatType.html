@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>student Management System</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="container mt-5">
+
+  <hr/>
+
+  <button id="addBtn" type="button" class="btn  mb-3 text-right" data-bs-toggle="modal"
+          data-bs-target="#customerModal">
+    Add Item
+  </button>
+
+  <!--     add student modal-->
+  <div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="container m-2">
+          <form>
+            <h2>ADD ITEM</h2>
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="id" class="form-label">ID</label>
+              </div>
+              <input type="text" class="form-control" id="id">
+            </div>
+
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="type" class="form-label">TYPE</label>
+              </div>
+              <input type="text" class="form-control" id="type">
+            </div>
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="description" class="form-label">DESCRIPTION</label>
+              </div>
+              <input type="text" class="form-control" id="description">
+            </div>
+
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="quantity" class="form-label">QUANTITY</label>
+              </div>
+              <input type="text" class="form-control" id="quantity">
+            </div>
+
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="price" class="form-label">PRICE</label>
+              </div>
+              <input type="text" class="form-control" id="price">
+            </div>
+
+            <button id="btn_save_customer" type="submit" class="btn btn-primary" >Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  Update student Modal
+  <div class="modal fade" id="updateCustomerModal" tabindex="-1" aria-labelledby="updateCustomerModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="container m-2">
+          <form>
+            <h2>UPDATE ITEM</h2>
+            <div class="mb-3 box-container">
+              <div class="box-label">
+                <label for="updated_customer_id" class="form-label">ID</label>
+              </div>
+              <input type="text" class="form-control" id="updated_customer_id" readonly>
+            </div>
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="updated_type" class="form-label">TYPE</label>
+              </div>
+              <input type="text" class="form-control" id="updated_type">
+            </div>
+
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="updated_description" class="form-label"> DESCRIPTION</label>
+              </div>
+              <input type="text" class="form-control" id="updated_description">
+            </div>
+
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="updated_quantity" class="form-label">QUANTITY</label>
+              </div>
+              <input type="text" class="form-control" id="updated_quantity">
+            </div>
+
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="updated_price" class="form-label">PRICE</label>
+              </div>
+              <input type="text" class="form-control" id="updated_price">
+            </div>
+            <button id="btn_update_customer" type="submit" class="btn btn-primary">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-bordered">
+    <thead >
+    <tr>
+      <!--      <td>Profile</td>-->
+      <td>ID</td>
+
+      <td>TYPE</td>
+
+      <td>DESCRIPTION</td>
+      <td>QUANTITY</td>
+      <td>PRICE</td>
+
+
+      <td>Update</td>
+      <td>Delete</td>
+
+    </tr>
+    </thead>
+    <tbody id="customer_table_body">
+
+    </tbody>
+  </table>
+</div>
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="js/seatType.js"></script>
+</body>
+</html>
+

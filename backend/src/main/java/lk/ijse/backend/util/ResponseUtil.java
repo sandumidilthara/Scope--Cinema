@@ -1,5 +1,7 @@
 package lk.ijse.backend.util;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public class ResponseUtil {
     private int code;
     private String message;

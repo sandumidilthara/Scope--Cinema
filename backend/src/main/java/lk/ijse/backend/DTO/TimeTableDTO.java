@@ -7,47 +7,45 @@ import java.util.Objects;
 public class TimeTableDTO {
 
 
+
+
     private Long id;
+
+
+
+
+    private  String description;
 
 
     private LocalDateTime showTime;
 
-
     private LocalDateTime endTime;
 
-
-    private Double price;
-
-
-    private boolean isAvailable = true;
-
-
-    private FilmDTO filmDTO;
+    public TimeTableDTO(Long id, String description, LocalDateTime showTime, LocalDateTime endTime) {
+        this.id = id;
+        this.description = description;
+        this.showTime = showTime;
+        this.endTime = endTime;
+    }
 
 
-    private FilmHallDTO filmHallDTO;
-
-    // Constructors
     public TimeTableDTO() {
     }
 
-    public TimeTableDTO(LocalDateTime showTime, LocalDateTime endTime, Double price,
-                        boolean isAvailable, FilmDTO filmDTO, FilmHallDTO filmHallDTO) {
-        this.showTime = showTime;
-        this.endTime = endTime;
-        this.price = price;
-        this.isAvailable = isAvailable;
-        this.filmDTO = filmDTO;
-        this.filmHallDTO = filmHallDTO;
-    }
-
-    // Getters and Setters
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDateTime getShowTime() {
@@ -64,48 +62,5 @@ public class TimeTableDTO {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
-
-    public FilmDTO getFilm() {
-        return filmDTO;
-    }
-
-    public void setFilm(FilmDTO filmDTO) {
-        this.filmDTO = filmDTO;
-    }
-
-    public FilmHallDTO getFilmHall() {
-        return filmHallDTO;
-    }
-
-    public void setFilmHall(FilmHallDTO filmHallDTO) {
-        this.filmHallDTO = filmHallDTO;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TimeTableDTO timeTableDTO = (TimeTableDTO) o;
-        return Objects.equals(id, timeTableDTO.id) &&
-                Objects.equals(showTime, timeTableDTO.showTime) &&
-                Objects.equals(filmDTO, timeTableDTO.filmDTO) &&
-                Objects.equals(filmHallDTO, timeTableDTO.filmHallDTO);
     }
 }

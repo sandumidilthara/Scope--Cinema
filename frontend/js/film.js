@@ -3,16 +3,20 @@ document.getElementById('addSpiceForm').addEventListener('submit', function(even
 
   const formData = new FormData();
   const spice = {
-    name: document.getElementById('spiceName').value,
-    contactNumber: document.getElementById('contactNumber').value,
-    location: document.getElementById('location').value,
+    title: document.getElementById('title').value,
     description: document.getElementById('description').value,
-    email: document.getElementById('email').value,
-    imageURL: document.getElementById('spiceImageURL').value
+    genre: document.getElementById('genre').value,
+    team: document.getElementById('team').value,
+    durationMinutes: document.getElementById('durationMinutes').value,
+    releaseDate: document.getElementById('releaseDate').value,
+    language: document.getElementById('language').value,
+    cast: document.getElementById('cast').value,
+    imageUrl: document.getElementById('imageUrl').value,
+   trailerUrl: document.getElementById('trailerUrl').value
   };
   formData.append('spice', JSON.stringify(spice));
 
-  const spiceImageFile = document.getElementById('spiceImageURL');
+  const spiceImageFile = document.getElementById('imageUrl');
   if (spiceImageFile && spiceImageFile.files.length > 0) {
     formData.append('file', spiceImageFile.files[0]);
   } else {
@@ -20,7 +24,7 @@ document.getElementById('addSpiceForm').addEventListener('submit', function(even
     return;
   }
 
-  fetch('http://localhost:8080/api/v1/example/save', {
+  fetch('http://localhost:8080/api/v1/film/save', {
     method: 'POST',
     body: formData
   })
@@ -59,7 +63,7 @@ document.getElementById('addSpiceForm').addEventListener('submit', function(even
 
 const getAllCustomer = () => {
   $.ajax({
-    url: 'http://localhost:8080/api/v1/example/get',
+    url: 'http://localhost:8080/api/v1/film/get',
     type: "GET",
     success: (res) => {
       console.log(res);
@@ -67,18 +71,22 @@ const getAllCustomer = () => {
 
 
       res.data.forEach(customer => {
-        const imageUrl = customer.imageURL ? `data:image/png;base64,${customer.imageURL}` : 'assests/Images/noImage.png';
+        const imageUrl = customer.imageUrl ? `data:image/png;base64,${customer.imageUrl}` : 'assests/Images/noImage.png';
         $('#customer_table_body').append(`
           <tr>
             <td>${customer.id}</td>
-            <td>${customer.name}</td>
-            <td>${customer.contactNumber}</td>
-            <td>${customer.location}</td>
+            <td>${customer.title}</td>
             <td>${customer.description}</td>
-            <td>${customer.email}</td>
+            <td>${customer.genre}</td>
+            <td>${customer.team}</td>
+            <td>${customer.durationMinutes}</td>
+              <td>${customer.releaseDate}</td>
+                <td>${customer.language}</td>
+                  <td>${customer.cast}</td>
+                    <td>${customer.trailerUrl}</td>
             <td><img src="${imageUrl}" alt="Customer Image" style="width: 100px; height: auto;"></td>
-            <td>
-              <button class="btn btn-light btn-sm" onclick="editCustomer('${customer.id}','${customer.name}','${customer.contactNumber}','${customer.location}','${customer.description}','${customer.email}')">
+             <td>
+              <button class="btn btn-light btn-sm" onclick="editCustomer('${customer.id}','${customer.title}','${customer.description}','${customer.genre}','${customer.team}','${customer.durationMinutes}','${customer.releaseDate}','${customer.language}','${customer.cast}','${customer.trailerUrl}')">
                 Update
               </button>
             </td>
@@ -106,10 +114,9 @@ $(document).ready(function (){
 
 
 
-
 const deleteCustomer=(id) =>{
   $.ajax({
-    url:`http://localhost:8080/api/v1/example/delete/${id}`,
+    url:`http://localhost:8080/api/v1/film/delete/${id}`,
     type:'DELETE',
     success:(res)=>{
       console.log(res)
@@ -148,14 +155,20 @@ const deleteCustomer=(id) =>{
 
 
 
-const editCustomer=(id,name, contactNumber,location,description,email) =>{
+const editCustomer=(id, title,description,genre,team,durationMinutes,releaseDate,language,cast,trailerUrl) =>{
   $('#updated_film_id').val(id)
 
-  $('#updated_film_name').val(name)
-  $('#updated_capacity').val(contactNumber)
-  $('#updated_location').val(location)
+  $('#updated_film_title').val(title)
   $('#updated_description').val(description)
-  $('#updated_hall').val(email)
+  $('#updated_genre').val(genre)
+  $('#updated_team').val(team)
+
+  $('#updated_duration').val(durationMinutes)
+
+  $('#updated_release').val(releaseDate)
+  $('#updated_language').val(language)
+  $('#updated_cast').val(cast)
+  $('#updated_trailer').val(trailerUrl)
   $('#updateCustomerModal').modal('show')
 
 }
@@ -171,12 +184,20 @@ $('#btn_update_customer').click((e) => {
 
   // Append form data to the FormData object
   updateCustomerData.append('spice', JSON.stringify({
-    id: $('#updated_film_id').val(),
-    name: $('#updated_film_name').val(),
-    contactNumber: $('#updated_capacity').val(),
-    location: $('#updated_location').val(),
-    description: $('#updated_description').val(),
-    email: $('#updated_hall').val()
+
+id:  $('#updated_film_id').val(),
+   title:  $('#updated_film_title').val(),
+  description :  $('#updated_description').val(),
+ genre :  $('#updated_genre').val(),
+ team :  $('#updated_team').val(),
+
+ durationMinutes : $('#updated_duration').val(),
+
+      releaseDate : $('#updated_release').val(),
+      language : $('#updated_language').val(),
+  cast : $('#updated_language').val(),
+      trailerUrl : $('#updated_trailer').val()
+
   }));
 
   const updatedImageFile = $('#edit_image')[0].files[0]; // Get the file from the input
@@ -186,7 +207,7 @@ $('#btn_update_customer').click((e) => {
 
   // Send the FormData object
   $.ajax({
-    url: 'http://localhost:8080/api/v1/example/update', // Your API endpoint
+    url: 'http://localhost:8080/api/v1/film/update', // Your API endpoint
     type: 'PUT',
     data: updateCustomerData,
     processData: false, // Prevent jQuery from automatically transforming the data into a query string
@@ -201,3 +222,4 @@ $('#btn_update_customer').click((e) => {
     }
   });
 });
+

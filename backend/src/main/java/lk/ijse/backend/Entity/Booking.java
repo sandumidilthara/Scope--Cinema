@@ -27,9 +27,9 @@ public class Booking {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "seat_id", nullable = false)
-    private Seats seat;
+//    @ManyToOne
+//    @JoinColumn(name = "seat_id", nullable = false)
+//    private Seats seat;
 
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
     private Payment payment;
@@ -45,7 +45,7 @@ public class Booking {
         this.bookingReference = bookingReference;
         this.status = status;
         this.customer = customer;
-        this.seat = seat;
+        //this.seat = seat;
     }
 
     // Getters and Setters
@@ -89,13 +89,13 @@ public class Booking {
         this.customer = customer;
     }
 
-    public Seats getSeat() {
-        return seat;
-    }
-
-    public void setSeat(Seats seat) {
-        this.seat = seat;
-    }
+//    public Seats getSeat() {
+//        return seat;
+//    }
+//
+//    public void setSeat(Seats seat) {
+//        this.seat = seat;
+//    }
 
     public Payment getPayment() {
         return payment;

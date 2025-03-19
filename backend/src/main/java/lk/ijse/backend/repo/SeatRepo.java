@@ -1,16 +1,11 @@
 package lk.ijse.backend.repo;
 
-import lk.ijse.backend.Entity.Example;
+import lk.ijse.backend.Entity.Seats;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
 @Repository
-public interface ExampleRepo extends JpaRepository<Example, UUID> {
-
-
-
-
+public interface SeatRepo extends JpaRepository<Seats ,Long> {
 
 
 }

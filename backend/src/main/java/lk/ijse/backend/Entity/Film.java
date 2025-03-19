@@ -3,16 +3,18 @@ package lk.ijse.backend.Entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
-@Table(name = "films")
+@Table(name = "film")
 public class Film {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+   UUID id;
 
     @Column(nullable = false)
     private String title;
@@ -24,88 +26,57 @@ public class Film {
     private String genre;
 
     @Column
-    private String director;
+    private String team;
 
-    @Column(name = "duration_minutes")
-    private Integer durationMinutes;
+   // @Column(name = "duration_minutes")
+    private String durationMinutes;
 
     @Column(name = "release_date")
-    private LocalDate releaseDate;
+    private String releaseDate;
 
     @Column
     private String language;
 
-    @Column(name = "poster_url")
-    private String posterUrl;
+    @Column
+    private String cast;
 
-    @Column(name = "is_active")
-    private boolean isActive = true;
 
-    @OneToMany(mappedBy = "film")
-    private List<TimeTable> timeTables;
-
-    @OneToMany(mappedBy = "film")
-    private List<User> users;
-
-    @ManyToOne
-    @JoinColumn(name = "film_hall_id")
-    private FilmHall filmHall;
 
 
     @Column( name = "film_photo")
     private String imageUrl;
 
-
     @Column( name = "trailer")
     private String trailerUrl;
 
-
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FilmRegistration> filmRegistrationLists;
 
     // Constructors
     public Film() {
     }
 
-    public Film(Long id, String title, String description, String genre, String director, Integer durationMinutes, LocalDate releaseDate, String language, String posterUrl, boolean isActive, List<TimeTable> timeTables, List<User> users, FilmHall filmHall, String imageUrl, String trailerUrl) {
+    public Film(UUID id, String title, String description, String genre, String team, String durationMinutes, String releaseDate, String language, String cast, String imageUrl, String trailerUrl) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.genre = genre;
-        this.director = director;
+        this.team = team;
         this.durationMinutes = durationMinutes;
         this.releaseDate = releaseDate;
         this.language = language;
-        this.posterUrl = posterUrl;
-        this.isActive = isActive;
-        this.timeTables = timeTables;
-        this.users = users;
-        this.filmHall = filmHall;
+        this.cast = cast;
         this.imageUrl = imageUrl;
         this.trailerUrl = trailerUrl;
+        this.filmRegistrationLists = new ArrayList<>();
     }
 
 
-    public String getTrailerUrl() {
-        return trailerUrl;
-    }
-
-    public void setTrailerUrl(String trailerUrl) {
-        this.trailerUrl = trailerUrl;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    // Getters and Setters
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -133,27 +104,27 @@ public class Film {
         this.genre = genre;
     }
 
-    public String getDirector() {
-        return director;
+    public String getTeam() {
+        return team;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
+    public void setTeam(String team) {
+        this.team = team;
     }
 
-    public Integer getDurationMinutes() {
+    public String getDurationMinutes() {
         return durationMinutes;
     }
 
-    public void setDurationMinutes(Integer durationMinutes) {
+    public void setDurationMinutes(String durationMinutes) {
         this.durationMinutes = durationMinutes;
     }
 
-    public LocalDate getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -165,67 +136,36 @@ public class Film {
         this.language = language;
     }
 
-    public String getPosterUrl() {
-        return posterUrl;
+    public String getCast() {
+        return cast;
     }
 
-    public void setPosterUrl(String posterUrl) {
-        this.posterUrl = posterUrl;
+    public void setCast(String cast) {
+       this.cast = cast;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public List<TimeTable> getTimeTables() {
-        return timeTables;
+    public String getTrailerUrl() {
+        return trailerUrl;
     }
 
-    public void setTimeTables(List<TimeTable> timeTables) {
-        this.timeTables = timeTables;
+    public void setTrailerUrl(String trailerUrl) {
+        this.trailerUrl = trailerUrl;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<FilmRegistration> getFilmRegistrationLists() {
+        return filmRegistrationLists;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public FilmHall getFilmHall() {
-        return filmHall;
-    }
-
-    public void setFilmHall(FilmHall filmHall) {
-        this.filmHall = filmHall;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Film film = (Film) o;
-        return Objects.equals(id, film.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Film{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", genre='" + genre + '\'' +
-                ", durationMinutes=" + durationMinutes +
-                '}';
+    public void setFilmRegistrationLists(List<FilmRegistration> filmRegistrationLists) {
+        this.filmRegistrationLists = filmRegistrationLists;
     }
 }
 

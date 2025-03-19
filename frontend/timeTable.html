@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title> </title>
+  <title>student Management System</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -12,7 +12,7 @@
 
 <body>
 <div class="container mt-5">
-  <h1 class="text-center">Item Manage</h1>
+
   <hr/>
 
   <button id="addBtn" type="button" class="btn  mb-3 text-right" data-bs-toggle="modal"
@@ -26,7 +26,7 @@
       <div class="modal-content">
         <div class="container m-2">
           <form>
-            <h2>ADD FILM HALL</h2>
+            <h2>ADD ITEM</h2>
             <div class="mb-4 box-container">
               <div class="box-label">
                 <label for="id" class="form-label">ID</label>
@@ -35,46 +35,24 @@
             </div>
             <div class="mb-4 box-container">
               <div class="box-label">
-                <label for="name" class="form-label">  NAME</label>
-              </div>
-              <input type="text" class="form-control" id="name">
-            </div>
-            <div class="mb-4 box-container">
-              <div class="box-label">
-                <label for="capacity" class="form-label">CAPACITY</label>
-              </div>
-              <input type="text" class="form-control" id="capacity">
-            </div>
-
-            <div class="mb-4 box-container">
-              <div class="box-label">
-                <label for="location" class="form-label">LOCATION</label>
-              </div>
-              <input type="text" class="form-control" id="location">
-            </div>
-
-
-            <div class="mb-4 box-container">
-              <div class="box-label">
                 <label for="description" class="form-label">DESCRIPTION</label>
               </div>
               <input type="text" class="form-control" id="description">
             </div>
-
-
             <div class="mb-4 box-container">
               <div class="box-label">
-                <label for="hall" class="form-label">HALL TYPE</label>
+                <label for="showTime" class="form-label">SHOW TIME</label>
               </div>
-              <input type="text" class="form-control" id="hall">
+              <input type="text" class="form-control" id="showTime">
             </div>
 
             <div class="mb-4 box-container">
               <div class="box-label">
-                <label for="image" class="form-label"> IMAGE(Upload Image)</label>
+                <label for="endTime" class="form-label">END TIME</label>
               </div>
-              <input type="file" class="form-control" id="image" accept="image/*">
+              <input type="text" class="form-control" id="endTime">
             </div>
+
             <button id="btn_save_customer" type="submit" class="btn btn-primary" >Save</button>
           </form>
         </div>
@@ -82,7 +60,7 @@
     </div>
   </div>
 
-  <!-- Update student Modal -->
+   Update student Modal
   <div class="modal fade" id="updateCustomerModal" tabindex="-1" aria-labelledby="updateCustomerModalLabel"
        aria-hidden="true">
     <div class="modal-dialog">
@@ -94,54 +72,31 @@
               <div class="box-label">
                 <label for="id" class="form-label">ID</label>
               </div>
-              <input type="text" class="form-control" id="updated_film_id" readonly>
-            </div>
-            <div class="mb-3 box-container">
-              <div class="box-label">
-                <label for="name" class="form-label">  NAME</label>
-              </div>
-              <input type="text" class="form-control" id="updated_film_name">
-            </div>
-
-            <div class="mb-4 box-container">
-              <div class="box-label">
-                <label for="capacity" class="form-label"> CAPACITY</label>
-              </div>
-              <input type="text" class="form-control" id="updated_capacity">
-            </div>
-
-            <div class="mb-4 box-container">
-              <div class="box-label">
-                <label for="location" class="form-label">LOCATION</label>
-              </div>
-              <input type="text" class="form-control" id="updated_location">
+              <input type="text" class="form-control" id="updated_customer_id" readonly>
             </div>
 
 
             <div class="mb-4 box-container">
               <div class="box-label">
-                <label for="description" class="form-label">DESCRIPTION</label>
+                <label for="description" class="form-label"> DESCRIPTION</label>
               </div>
               <input type="text" class="form-control" id="updated_description">
             </div>
 
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="updated_show_time" class="form-label"> UNITPRICE</label>
+              </div>
+              <input type="text" class="form-control" id="updated_show_time">
+            </div>
+
 
             <div class="mb-4 box-container">
               <div class="box-label">
-                <label for="hall" class="form-label">HALL TYPE</label>
+                <label for="updated_end_time" class="form-label"> QTY</label>
               </div>
-              <input type="text" class="form-control" id="updated_hall">
+              <input type="text" class="form-control" id="updated_end_time">
             </div>
-
-
-
-            <div class="mb-3">
-              <label for="edit_image" class="form-label">Room Image (Optional)</label>
-              <input type="file" class="form-control" id="edit_image" accept="image/*">
-              <small  class="text-muted">Leave empty to keep current image</small>
-            </div>
-
-
             <button id="btn_update_customer" type="submit" class="btn btn-primary">Update</button>
           </form>
         </div>
@@ -154,12 +109,10 @@
     <tr>
       <!--      <td>Profile</td>-->
       <td>ID</td>
-      <td>Name</td>
-      <td>CAPACITY</td>
-      <td>LOCATION</td>
+
       <td>DESCRIPTION</td>
-      <td>HALL TYPE</td>
-      <td>IMAGE</td>
+      <td>SHOW TIME</td>
+      <td>END TIME</td>
 
 
       <td>Update</td>
@@ -175,8 +128,7 @@
 <script src="js/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="js/jquery-3.7.1.min.js"></script>
-<script src="js/filmHall.js"></script>
+<script src="js/timeTable.js"></script>
 </body>
 </html>
 

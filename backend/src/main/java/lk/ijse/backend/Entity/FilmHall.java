@@ -2,21 +2,23 @@ package lk.ijse.backend.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
-@Table(name = "film_halls")
+@Table(name = "film_hall")
 public class FilmHall {
-
-    @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Id
+@GeneratedValue(strategy = GenerationType.UUID)
+    UUID id;
+    private String imageURL;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "total_capacity")
-    private Integer totalCapacity;
+    @Column(name = "contact_number")
+    private String contactNumber;
 
     @Column
     private String location;
@@ -24,33 +26,42 @@ public class FilmHall {
     @Column
     private String description;
 
-    @Column(name = "hall_type")
-    private String hallType; // Regular, IMAX, VIP, etc.
+    @Column(name = "email")
+    private String email;
 
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "filmHall", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FilmRegistration> filmRegistrationList;
 
-    @Column( name = "filmHall_photo")
-    private String image;
+    public FilmHall(UUID id, String imageURL, String name, String contactNumber, String location, String description, String email ) {
+        this.id = id;
+        this.imageURL = imageURL;
+        this.name = name;
+        this.contactNumber = contactNumber;
+        this.location = location;
+        this.description = description;
+        this.email = email;
+
+    }
+
+    public FilmHall() {
+    }
 
 
-
-    @OneToMany(mappedBy = "filmHall", cascade = CascadeType.ALL)
-    private List<Seats> seats;
-
-    @OneToMany(mappedBy = "filmHall")
-    private List<TimeTable> timeTables;
-
-    @OneToMany(mappedBy = "filmHall")
-    private List<Film> films;
-
-
-
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getName() {
@@ -61,12 +72,12 @@ public class FilmHall {
         this.name = name;
     }
 
-    public Integer getTotalCapacity() {
-        return totalCapacity;
+    public String getContactNumber() {
+        return contactNumber;
     }
 
-    public void setTotalCapacity(Integer totalCapacity) {
-        this.totalCapacity = totalCapacity;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
     public String getLocation() {
@@ -85,35 +96,19 @@ public class FilmHall {
         this.description = description;
     }
 
-    public String getHallType() {
-        return hallType;
+    public String getEmail() {
+        return email;
     }
 
-    public void setHallType(String hallType) {
-        this.hallType = hallType;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-
-
-    public String getImage() {
-        return image;
+    public List<FilmRegistration> getFilmRegistrationList() {
+        return filmRegistrationList;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-
-    public FilmHall() {
-    }
-
-    public FilmHall(Long id, String name, Integer totalCapacity, String location, String description, String hallType ,String image) {
-        this.id = id;
-        this.name = name;
-        this.totalCapacity = totalCapacity;
-        this.location = location;
-        this.description = description;
-        this.hallType = hallType;
-        this.image = image;
+    public void setFilmRegistrationList(List<FilmRegistration> filmRegistrationList) {
+        this.filmRegistrationList = filmRegistrationList;
     }
 }

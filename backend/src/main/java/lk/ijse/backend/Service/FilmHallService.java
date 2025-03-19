@@ -1,15 +1,20 @@
 package lk.ijse.backend.Service;
 
 import lk.ijse.backend.DTO.FilmHallDTO;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public interface FilmHallService {
 
+    FilmHallDTO<String> save(FilmHallDTO spiceDTO, MultipartFile file);
+    List<FilmHallDTO<String>> getAll();
 
-    public  void save(FilmHallDTO filmHallDTO);
+    public void delete(UUID id);
 
-    public ArrayList<FilmHallDTO> getAll();
-    public void delete(Long id);
-    public void update(FilmHallDTO filmHallDTO);
+
+
+    public FilmHallDTO<String> update(UUID id, FilmHallDTO spiceDTO, MultipartFile file);
+
 }

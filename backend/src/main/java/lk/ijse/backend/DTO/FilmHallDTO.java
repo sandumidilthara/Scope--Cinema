@@ -1,21 +1,20 @@
 package lk.ijse.backend.DTO;
 
-import jakarta.persistence.*;
-import org.springframework.web.multipart.MultipartFile;
+import jakarta.persistence.Column;
 
-import java.util.List;
-import java.util.Objects;
+import java.io.Serializable;
+import java.util.UUID;
 
-
-public class FilmHallDTO {
+public class FilmHallDTO<T> implements Serializable {
 
 
-    private Long id;
 
-    private String name;
+    UUID id;
+    private T imageURL;
+    String name;
 
 
-    private Integer totalCapacity;
+    private String contactNumber;
 
 
     private String location;
@@ -24,18 +23,22 @@ public class FilmHallDTO {
     private String description;
 
 
-    private String hallType; // Regular, IMAX, VIP, etc.
+   private String email;
 
-
-
-    private MultipartFile image;
-
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
+    }
+
+    public T getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(T imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getName() {
@@ -46,13 +49,6 @@ public class FilmHallDTO {
         this.name = name;
     }
 
-    public Integer getTotalCapacity() {
-        return totalCapacity;
-    }
-
-    public void setTotalCapacity(Integer totalCapacity) {
-        this.totalCapacity = totalCapacity;
-    }
 
     public String getLocation() {
         return location;
@@ -70,45 +66,34 @@ public class FilmHallDTO {
         this.description = description;
     }
 
-    public String getHallType() {
-        return hallType;
+
+    public String getContactNumber() {
+        return contactNumber;
     }
 
-    public void setHallType(String hallType) {
-        this.hallType = hallType;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
-    public  MultipartFile getImage() {
-        return image;
+    public String getEmail() {
+        return email;
     }
 
-    public void setImage(MultipartFile image) {
-        this.image = image;
-    }
-
-    public FilmHallDTO(Long id, String name,  Integer totalCapacity, String location, String description, String hallType,  MultipartFile image) {
-        this.id = id;
-        this.name = name;
-        this.totalCapacity = totalCapacity;
-        this.location = location;
-        this.description = description;
-        this.hallType = hallType;
-        this.image = image;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public FilmHallDTO() {
     }
 
-    @Override
-    public String toString() {
-        return "FilmHallDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", totalCapacity=" + totalCapacity +
-                ", location='" + location + '\'' +
-                ", description='" + description + '\'' +
-                ", hallType='" + hallType + '\'' +
-                ", image=" + image +
-                '}';
+
+    public FilmHallDTO(UUID id, T imageURL, String name, String contactNumber, String location, String description, String email) {
+        this.id = id;
+        this.imageURL = imageURL;
+        this.name = name;
+        this.contactNumber = contactNumber;
+        this.location = location;
+        this.description = description;
+        this.email = email;
     }
 }

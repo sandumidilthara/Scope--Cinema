@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +9,7 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Admin Panel</a>
@@ -18,21 +21,166 @@
     </div>
   </div>
 </nav>
-<form id="addSpiceForm" enctype="multipart/form-data">
-  <div class="mb-3">
-    <label for="spiceName" class="form-label">Name</label>
-    <input type="text" class="form-control" id="spiceName" placeholder="Enter spice name" required>
-    <span id="nameError" class="error text-danger"></span>
-  </div>
 
-  <div class="mb-3">
-    <label for="spiceImageURL" class="form-label">Image URL</label>
-    <input type="file" class="form-control" id="spiceImageURL" required>
+<!-- Button to show the modal -->
+<button id="showFormButton" class="btn btn-success m-3" data-toggle="modal" data-target="#addSpiceModal">Add Item</button>
+
+<!-- Spice Form Modal -->
+<div class="modal fade" id="addSpiceModal" tabindex="-1" aria-labelledby="addSpiceModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addSpiceModalLabel">Add Spice</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addSpiceForm" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="spiceName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="spiceName" placeholder="Enter spice name" required>
+            <span id="nameError" class="error text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label for="contactNumber" class="form-label">Total Capacity</label>
+            <input type="text" class="form-control" id="contactNumber" placeholder="Enter total capacity" required>
+            <span id="totalError" class="error text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" class="form-control" id="location" placeholder="Enter location" required>
+            <span id="locationError" class="error text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="description" placeholder="Enter description" required>
+            <span id="descriptionError" class="error text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Hall Type</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter hall type" required>
+            <span id="hallTypeError" class="error text-danger"></span>
+          </div>
+          <div class="mb-3">
+            <label for="spiceImageURL" class="form-label">Image URL</label>
+            <input type="file" class="form-control" id="spiceImageURL" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Spice</button>
+        </form>
+      </div>
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary">Add Spice</button>
-</form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="updateCustomerModal" tabindex="-1" aria-labelledby="updateCustomerModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="container m-2">
+        <form>
+          <h2>UPDATE ITEM</h2>
+
+
+
+          <div class="mb-3 box-container">
+            <div class="box-label">
+              <label for="updated_film_id" class="form-label">ID</label>
+            </div>
+            <input type="text" class="form-control" id="updated_film_id" readonly>
+          </div>
+          <div class="mb-3 box-container">
+            <div class="box-label">
+              <label for="updated_film_name" class="form-label">  NAME</label>
+            </div>
+            <input type="text" class="form-control" id="updated_film_name">
+          </div>
+
+          <div class="mb-4 box-container">
+            <div class="box-label">
+              <label for="updated_capacity" class="form-label"> CAPACITY</label>
+            </div>
+            <input type="text" class="form-control" id="updated_capacity">
+          </div>
+
+          <div class="mb-4 box-container">
+            <div class="box-label">
+              <label for="updated_location" class="form-label">LOCATION</label>
+            </div>
+            <input type="text" class="form-control" id="updated_location">
+          </div>
+
+
+          <div class="mb-4 box-container">
+            <div class="box-label">
+              <label for="updated_description" class="form-label">DESCRIPTION</label>
+            </div>
+            <input type="text" class="form-control" id="updated_description">
+          </div>
+
+
+          <div class="mb-4 box-container">
+            <div class="box-label">
+              <label for="updated_hall" class="form-label">HALL TYPE</label>
+            </div>
+            <input type="text" class="form-control" id="updated_hall">
+          </div>
+
+
+
+          <div class="mb-3">
+            <label for="edit_image" class="form-label">Room Image (Optional)</label>
+            <input type="file" class="form-control" id="edit_image" accept="image/*">
+            <small  class="text-muted">Leave empty to keep current image</small>
+          </div>
+
+
+          <button id="btn_update_customer" type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<table class="table table-bordered">
+  <thead >
+  <tr>
+    <!--      <td>Profile</td>-->
+    <td>ID</td>
+    <td>Name</td>
+    <td>CONTACT NUMBER</td>
+    <td>LOCATION</td>
+    <td>DESCRIPTION</td>
+    <td>EMAIL</td>
+    <td>IMAGE</td>
+
+
+    <td>Update</td>
+    <td>Delete</td>
+
+  </tr>
+  </thead>
+  <tbody id="customer_table_body">
+
+  </tbody>
+</table>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="js/index.js"></script>
+
 </body>
 </html>

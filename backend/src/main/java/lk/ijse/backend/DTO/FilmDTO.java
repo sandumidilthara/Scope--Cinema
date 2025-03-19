@@ -1,18 +1,20 @@
 package lk.ijse.backend.DTO;
 
-import jakarta.persistence.*;
 import lk.ijse.backend.Entity.FilmHall;
 import lk.ijse.backend.Entity.TimeTable;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 
-public class FilmDTO {
+public class FilmDTO<T> implements Serializable {
 
 
-    private Long id;
+    private UUID id;
 
 
     private String title;
@@ -24,34 +26,26 @@ public class FilmDTO {
     private String genre;
 
 
-    private String director;
+    private String team;
 
 
-    private Integer durationMinutes;
+    private String durationMinutes;
 
-    private LocalDate releaseDate;
+    private String releaseDate;
 
 
     private String language;
 
 
-    private String posterUrl;
-
-
-    private boolean isActive = true;
-
-
-    private List<TimeTable> timeTables;
-
-
-    private List<UserDTO> users;
-
-
-    private FilmHall filmHall;
+    private String cast;
 
 
 
-    private String imageUrl;
+
+
+
+
+    private  T imageUrl;
 
 
 
@@ -63,47 +57,11 @@ public class FilmDTO {
     public FilmDTO() {
     }
 
-    public FilmDTO(Long id, String title, String description, String genre, String director, Integer durationMinutes, LocalDate releaseDate, String language, String posterUrl, boolean isActive, List<TimeTable> timeTables, List<UserDTO> users, FilmHall filmHall, String imageUrl, String trailerUrl) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.genre = genre;
-        this.director = director;
-        this.durationMinutes = durationMinutes;
-        this.releaseDate = releaseDate;
-        this.language = language;
-        this.posterUrl = posterUrl;
-        this.isActive = isActive;
-        this.timeTables = timeTables;
-        this.users = users;
-        this.filmHall = filmHall;
-        this.imageUrl = imageUrl;
-        this.trailerUrl = trailerUrl;
-    }
-
-
-    public String getTrailerUrl() {
-        return trailerUrl;
-    }
-
-    public void setTrailerUrl(String trailerUrl) {
-        this.trailerUrl = trailerUrl;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    // Getters and Setters
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -131,27 +89,27 @@ public class FilmDTO {
         this.genre = genre;
     }
 
-    public String getDirector() {
-        return director;
+    public String getTeam() {
+        return team;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
+    public void setTeam(String team) {
+        this.team = team;
     }
 
-    public Integer getDurationMinutes() {
+    public String getDurationMinutes() {
         return durationMinutes;
     }
 
-    public void setDurationMinutes(Integer durationMinutes) {
+    public void setDurationMinutes(String durationMinutes) {
         this.durationMinutes = durationMinutes;
     }
 
-    public LocalDate getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -163,61 +121,43 @@ public class FilmDTO {
         this.language = language;
     }
 
-    public String getPosterUrl() {
-        return posterUrl;
+    public String getCast() {
+        return cast;
     }
 
-    public void setPosterUrl(String posterUrl) {
-        this.posterUrl = posterUrl;
+    public void setCast(String cast) {
+        this.cast = cast;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public T getImageUrl() {
+        return imageUrl;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setImageUrl(T imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public List<TimeTable> getTimeTables() {
-        return timeTables;
+    public String getTrailerUrl() {
+        return trailerUrl;
     }
 
-    public void setTimeTables(List<TimeTable> timeTables) {
-        this.timeTables = timeTables;
-    }
-
-    public List<UserDTO> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<UserDTO> users) {
-        this.users = users;
-    }
-
-    public FilmHall getFilmHall() {
-        return filmHall;
-    }
-
-    public void setFilmHall(FilmHall filmHall) {
-        this.filmHall = filmHall;
+    public void setTrailerUrl(String trailerUrl) {
+        this.trailerUrl = trailerUrl;
     }
 
 
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Film{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", genre='" + genre + '\'' +
-                ", durationMinutes=" + durationMinutes +
-                '}';
+    public FilmDTO(UUID id, String title, String description, String genre, String team, String durationMinutes, String releaseDate, String language, String cast, T imageUrl, String trailerUrl) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.genre = genre;
+        this.team = team;
+        this.durationMinutes = durationMinutes;
+        this.releaseDate = releaseDate;
+        this.language = language;
+        this.cast = cast;
+        this.imageUrl = imageUrl;
+        this.trailerUrl = trailerUrl;
     }
 }
 
