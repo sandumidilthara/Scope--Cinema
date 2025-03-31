@@ -2,52 +2,38 @@ package lk.ijse.backend.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lk.ijse.backend.DTO.FilmDTO;
-import lk.ijse.backend.DTO.FilmHallDTO;
-import lk.ijse.backend.Service.FilmHallServiceImpl;
+import lk.ijse.backend.DTO.UpcomingFilmDTO;
 import lk.ijse.backend.Service.FilmServiceImpl;
+import lk.ijse.backend.Service.UpcomingFilmServiceImpl;
 import lk.ijse.backend.util.ResponceUtil;
 import lk.ijse.backend.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-
 @RestController
-@RequestMapping("/api/v1/film")
+@RequestMapping("/api/v1/up-film")
 @CrossOrigin
-public class FilmController {
+public class UpcomingFilmController {
 
 
 
 
-    private  static final Logger log = LoggerFactory.getLogger(FilmController.class);
+    private  static final Logger log = LoggerFactory.getLogger(UpcomingFilmController.class);
     @Autowired
-    private FilmServiceImpl spiceService;
-
-
-
-
-
-
-
-
-
-
+    private UpcomingFilmServiceImpl spiceService;
     @PostMapping(value = "/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil saveSpice(@RequestPart("spice") String spiceJson, @RequestPart("file") MultipartFile file) {
         try {
-            FilmDTO spiceDTO = new ObjectMapper().readValue(spiceJson, FilmDTO.class);
+            UpcomingFilmDTO spiceDTO = new ObjectMapper().readValue(spiceJson, UpcomingFilmDTO.class);
             log.info("Received request to save spice: {}", spiceDTO.getTitle());
             spiceDTO.setImageUrl(file.getOriginalFilename());
-            FilmDTO<String> savedSpice = spiceService.save(spiceDTO, file);
+            UpcomingFilmDTO<String> savedSpice = spiceService.save(spiceDTO, file);
             log.info("Spice saved successfully: {}", spiceDTO.getTitle());
             return new ResponseUtil(201, "Spice saved successfully", savedSpice);
         } catch (Exception e) {
@@ -58,7 +44,7 @@ public class FilmController {
     @GetMapping(path = "/get")
     public ResponseUtil getAllSpiceListenings(){
         try {
-            List<FilmDTO<String>> spices = spiceService.getAll();
+            List<UpcomingFilmDTO<String>> spices = spiceService.getAll();
             return new ResponseUtil(201, "Spices retrieved successfully", spices);
         } catch (Exception e) {
             log.error("Error retrieving spices", e);
@@ -84,10 +70,10 @@ public class FilmController {
     @PutMapping(path = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil updateSpiceListening(@RequestPart("spice") String spiceJson, @RequestPart("file") MultipartFile file) {
         try {
-            FilmDTO spiceDTO = new ObjectMapper().readValue(spiceJson, FilmDTO.class);
+            UpcomingFilmDTO spiceDTO = new ObjectMapper().readValue(spiceJson, UpcomingFilmDTO.class);
             log.info("Received request to update spice: {}", spiceDTO.getTitle());
             spiceDTO.setImageUrl(file.getOriginalFilename());
-            FilmDTO<String> updatedSpice = spiceService.update(spiceDTO.getId(), spiceDTO, file);
+            UpcomingFilmDTO<String> updatedSpice = spiceService.update(spiceDTO.getId(), spiceDTO, file);
             log.info("Spice updated successfully: {}", spiceDTO.getTitle());
             return new ResponseUtil(201, "Spice updated successfully", updatedSpice);
         } catch (Exception e) {
@@ -96,17 +82,5 @@ public class FilmController {
         }
     }
 
-
-
-
-    @GetMapping("/getImage/{id}")
-    public ResponseEntity<FilmDTO<String>> getFilmImage(@PathVariable("id") UUID filmId) {
-        FilmDTO<String> filmDTO = spiceService.getFilmImage(filmId);
-        if (filmDTO != null) {
-            return ResponseEntity.ok(filmDTO);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
 
 }

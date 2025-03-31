@@ -1,0 +1,62 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Movie Trailer</title>-->
+<!--  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container mt-5">-->
+<!--  <h1 class="text-center">Movie Trailer</h1>-->
+<!--  <div class="text-center">-->
+<!--    <iframe width="914" height="514" src="" title="Final Destination Bloodlines | Official Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<script>-->
+<!--  // Get the URL parameters-->
+<!--  const params = new URLSearchParams(window.location.search);-->
+<!--  const trailerUrl = params.get('trailerUrl');-->
+
+<!--  // Set the iframe source to the trailer URL-->
+<!--  if (trailerUrl) {-->
+<!--    document.getElementById('trailer').src = trailerUrl;-->
+<!--  } else {-->
+<!--    document.body.innerHTML = '<h2 class="text-danger text-center">No trailer available.</h2>';-->
+<!--  }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Trailer</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="text-center">Movie Trailer</h1>
+  <div class="text-center">
+    <iframe  id="trailer" width="914" height="514" src="" title="Final Destination Bloodlines | Official Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+  // Get the URL parameters
+  const params = new URLSearchParams(window.location.search);
+  const trailerUrl = params.get('trailerUrl');
+
+  // Set the iframe source to the trailer URL
+  if (trailerUrl) {
+    document.getElementById('trailer').src = trailerUrl;
+  } else {
+    document.body.innerHTML = '<h2 class="text-danger text-center">No trailer available.</h2>';
+  }
+</script>
+</body>
+</html>

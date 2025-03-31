@@ -1,7 +1,9 @@
 package lk.ijse.backend.Service;
 
 import jakarta.transaction.Transactional;
+import lk.ijse.backend.DTO.FilmDTO;
 import lk.ijse.backend.DTO.FilmHallDTO;
+import lk.ijse.backend.Entity.Film;
 import lk.ijse.backend.Entity.FilmHall;
 import lk.ijse.backend.repo.FilmHallRepo;
 import lk.ijse.backend.util.ImageUtil;
@@ -97,6 +99,15 @@ public class FilmHallServiceImpl implements FilmHallService {
             throw new RuntimeException("Spice Listing Not Found");
         }
     }
+
+
+
+
+
+
+
+
+
 
 
 

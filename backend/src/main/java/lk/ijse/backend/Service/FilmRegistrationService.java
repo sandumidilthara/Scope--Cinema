@@ -11,6 +11,6 @@ public interface FilmRegistrationService {
     public  void save(FilmRegistrationDTO filmRegistrationDTO);
     //public ArrayList<FilmRegistrationDTO> getAll();
     public ArrayList<Map<String, Object>> getAll();
-
+    public void update(FilmRegistrationDTO filmRegistrationDTO);
     public void delete(Long id);
 }

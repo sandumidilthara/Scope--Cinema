@@ -16,7 +16,7 @@ $('#load-cus-ids').click((e) => {
       // Add options from response data
       if (res.data && res.data.length > 0) {
         res.data.forEach(film => {
-          $('#load-film-id').append(`<option value="${film.id}">${film.description}</option>`);
+          $('#load-film-id').append(`<option value="${film.id}">${film.type}</option>`);
         });
       } else {
         console.log("No data found in response");
@@ -60,7 +60,7 @@ $('#updated_load-cus-ids').click((e) => {
       // Add options from response data
       if (res.data && res.data.length > 0) {
         res.data.forEach(film => {
-          $('#updated_load-film-id').append(`<option value="${film.id}">${film.description}</option>`);
+          $('#updated_load-film-id').append(`<option value="${film.id}">${film.type}</option>`);
         });
       } else {
         console.log("No data found in response");
@@ -270,70 +270,82 @@ $('#updated_load-hall-ids').click((e) => {
 
 
 
-const editCustomer = (id,  rowLetter,seatNumber ,isAvailable,seatType,filmHall) => {
 
 
-    // const seatId = $('#updated_id').val();
-    // const updatedSeat = {
-    //   id: seatId,
-    //   rowLetter: $('#updated_rowLetter').val(),
-    //   seatNumber: $('#updated_seatNumber').val(),
-    //   isAvailable: $('#updated_isAvailable').is(':checked'),
-    //   seatType: {
-    //     id: $('#updated_load-film-id').val()
-    //   },
-    //   filmHall: {
-    //     id: $('#updated_load-hall-id').val()
-    //   }
-    // };
+const editCustomer = (id, rowLetter, seatNumber, isAvailable, seatType, filmHall) => {
+  // Open the update modal
+  $('#updateCustomerModal').modal('show');
 
-     $('#updated_id').val(id)
-  $('#updated_rowLetter').val(rowLetter)
-  $('#updated_seatNumber').val(seatNumber)
-  $('#updated_isAvailable').val(isAvailable)
+  // Set the values in the form fields
+  $('#updated_id').val(id);
+  $('#updated_rowLetter').val(rowLetter);
+  $('#updated_seatNumber').val(seatNumber);
 
+  // Set the checkbox value
+  $('#updated_isAvailable').prop('checked', isAvailable === 'true');
 
- $('#updated_load-film-id').val(seatType.type)
- $('#updated_load-hall-id').val(filmHall.name)
+  if ($('#updated_load-film-id option[value="' +   seatType + '"]').length === 0) {
+    $('#updated_load-film-id').append('<option value="' + seatType + '">' + seatType + '</option>');
+  }
+
+  // Set the dropdown value to hallName
+  $('#updated_load-film-id').val(seatType);
 
 
 
-  $('#updateCustomerModal').modal('show')
+
+
+  if ($('#updated_load-hall-id option[value="' +  filmHall + '"]').length === 0) {
+    $('#updated_load-hall-id').append('<option value="' + filmHall + '">' + filmHall + '</option>');
+  }
+
+  // Set the dropdown value to hallName
+  $('#updated_load-hall-id').val(filmHall);
 }
 
 
-
 $('#btn_update_customer').click((e) => {
-  e.preventDefault()
-  const id = $('#updated_id').val()
+  e.preventDefault();
 
-  const rowLetter = $('#updated_rowLetter').val()
-  const  seatNumber = $('#updated_seatNumber').val()
+  const seatId = $("#updated_id").val();
+  const rowLetter = $("#updated_rowLetter").val();
+  const seatNumber = $("#updated_seatNumber").val();
+  const isAvailable = $("#updated_isAvailable").is(":checked");
+  const seatTypeId = $('#updated_load-film-id').val();
+  const filmHallId = $('#updated_load-hall-id').val();
 
-  const isAvailable = $('#updated_isAvailable').val()
-  const seatType = $('#updated_load-film-id').val()
-  const filmHall = $('#updated_load-hall-id').val()
-
-  const updateCustomerData = {
-    id,
-    rowLetter,
-    seatNumber,
-    isAvailable,  // Change to match your DTO field name
-     seatType,
-    filmHall
+  if (!seatId || !rowLetter || !seatNumber || !seatTypeId || !filmHallId) {
+    alert("Please fill in all required fields");
+    return;
   }
+
+  const seatData = {
+    id: seatId,
+    rowLetter: rowLetter,
+    seatNumber: parseInt(seatNumber),
+    isAvailable: isAvailable,
+    seatType: {
+      id: seatTypeId
+    },
+    filmHall: {
+      id: filmHallId
+    }
+  };
 
   $.ajax({
     url: 'http://localhost:8080/api/v1/seat/update',
-    type: 'PUT',
-    data: JSON.stringify(updateCustomerData),
+    type: "PUT",
+    data: JSON.stringify(seatData),
     contentType: "application/json",
     success: (res) => {
-      getAllCustomer()
-      console.log(res)
+      console.log(res);
+      getAllCustomer();
+      alert("Seat updated successfully!");
+      $('#updateCustomerModal').modal('hide');
     },
     error: (err) => {
-      console.log(err)  // Fixed typo here as well (was 'res')
+      console.log(err);
+      alert("Error updating seat: " + (err.responseJSON?.message || "Unknown error"));
     }
-  })
+  });
 })

@@ -1,6 +1,7 @@
 package lk.ijse.backend.Entity;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -11,44 +12,46 @@ public class Booking {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     @Column(name = "booking_date", nullable = false)
-    private LocalDateTime bookingDate;
+    private LocalDate bookingDate;
 
-    @Column(name = "booking_reference", unique = true)
-    private String bookingReference;
-
-    @Column(name = "booking_status")
-    private String status; // RESERVED, CONFIRMED, CANCELLED
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
-
-//    @ManyToOne
-//    @JoinColumn(name = "seat_id", nullable = false)
-//    private Seats seat;
-
-    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
-    private Payment payment;
+    @Column(name = "film_name")
+    private String film;
 
 
-    // Constructors
+    @Column(name = "location")
+    private String filmHall;
+
+
+    @Version
+    private Long version;
+
+
+
+    @Column(name = "time")
+    private String time;
+
+
+    @Column(name = "seatNumber")
+    private String seat;
+
+    public Booking( Long id ,LocalDate bookingDate, String film, String filmHall, String time, String seat) {
+        this.id = id;
+        this.bookingDate = bookingDate;
+        this.film = film;
+        this.filmHall = filmHall;
+        this.time = time;
+        this.seat = seat;
+    }
+
+
+
     public Booking() {
     }
 
-    public Booking(LocalDateTime bookingDate, String bookingReference, String status,
-                   Customer customer, Seats seat) {
-        this.bookingDate = bookingDate;
-        this.bookingReference = bookingReference;
-        this.status = status;
-        this.customer = customer;
-        //this.seat = seat;
-    }
-
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -57,75 +60,45 @@ public class Booking {
         this.id = id;
     }
 
-    public LocalDateTime getBookingDate() {
+    public LocalDate getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(LocalDateTime bookingDate) {
+    public void setBookingDate(LocalDate bookingDate) {
         this.bookingDate = bookingDate;
     }
 
-    public String getBookingReference() {
-        return bookingReference;
+    public String getFilm() {
+        return film;
     }
 
-    public void setBookingReference(String bookingReference) {
-        this.bookingReference = bookingReference;
+    public void setFilm(String film) {
+        this.film = film;
     }
 
-    public String getStatus() {
-        return status;
+    public String getFilmHall() {
+        return filmHall;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setFilmHall(String filmHall) {
+        this.filmHall = filmHall;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getTime() {
+        return time;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-//    public Seats getSeat() {
-//        return seat;
-//    }
-//
-//    public void setSeat(Seats seat) {
-//        this.seat = seat;
-//    }
-
-    public Payment getPayment() {
-        return payment;
+    public String getSeat() {
+        return seat;
     }
 
-    public void setPayment(Payment payment) {
-        this.payment = payment;
+    public void setSeat(String seat) {
+        this.seat = seat;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Booking booking = (Booking) o;
-        return Objects.equals(id, booking.id) &&
-                Objects.equals(bookingReference, booking.bookingReference);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, bookingReference);
-    }
-
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", bookingDate=" + bookingDate +
-                ", bookingReference='" + bookingReference + '\'' +
-                ", status='" + status + '\'' +
-                '}';
-    }
 }

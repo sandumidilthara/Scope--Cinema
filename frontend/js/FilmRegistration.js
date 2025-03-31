@@ -209,7 +209,7 @@ const getAllCustomer=()=>{
                       <td>${customer.timeDescription}</td>
 
                      <td>
-                          <button class="btn btn-light btn-sm"  >
+                          <button class="btn btn-light btn-sm" onclick="editCustomer('${customer.id}','${customer.hallName}','${customer.filmTitle}' ,'${customer.timeDescription}')" >
                            Update
                            </button>
                       </td>
@@ -254,3 +254,200 @@ const deleteCustomer=(id) =>{
 }
 
 
+
+
+
+$('#updated_load-cus-ids').click((e) => {
+  e.preventDefault();
+
+  $.ajax({
+    url: 'http://localhost:8080/api/v1/time-table/getAll',
+    type: 'GET',
+    success: (res) => {
+      console.log(res);
+
+      // Clear existing options
+      $('#updated_load-film-id').empty();
+
+      // Add default option
+      $('#updated_load-film-id').append('<option value="">-- Select Time Table --</option>');
+
+      // Add options from response data
+      if (res.data && res.data.length > 0) {
+        res.data.forEach(film => {
+          $('#updated_load-film-id').append(`<option value="${film.id}">${film.description}</option>`);
+        });
+      } else {
+        console.log("No data found in response");
+      }
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  });
+});
+
+// Optional: To capture the selected value
+$('#updated_load-film-id').change(function() {
+  const selectedId = $(this).val();
+  const selectedName = $(this).find("option:selected").text();
+  console.log("Selected ID:", selectedId);
+  console.log("Selected Name:", selectedName);
+
+  // You can use these values as needed
+  // For example, populate other fields:
+  // $('#someOtherField').val(selectedId);
+});
+
+
+
+
+
+
+
+$('#updated_load-hall-ids').click((e) => {
+  e.preventDefault();
+
+  $.ajax({
+    url: 'http://localhost:8080/api/v1/example/get', // Updated URL
+    type: 'GET',
+    success: (res) => {
+      console.log(res);
+
+      // Clear existing options
+      $('#updated_load-hall-id').empty();
+
+      // Add default option
+      $('#updated_load-hall-id').append('<option value="">-- Select Time Table --</option>');
+
+      // Add options from response data
+      if (res.data && res.data.length > 0) {
+        res.data.forEach(spice => { // Updated variable name
+          $('#updated_load-hall-id').append(`<option value="${spice.id}">${spice.name}</option>`);
+        });
+      } else {
+        console.log("No data found in response");
+      }
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  });
+});
+
+
+
+$('#updated_load-films-ids').click((e) => {
+  e.preventDefault();
+
+  $.ajax({
+    url: 'http://localhost:8080/api/v1/film/get', // Updated URL
+    type: 'GET',
+    success: (res) => {
+      console.log(res);
+
+      // Clear existing options
+      $('#updated_load-films-id').empty();
+
+      // Add default option
+      $('#updated_load-films-id').append('<option value="">-- Select Time Table --</option>');
+
+      // Add options from response data
+      if (res.data && res.data.length > 0) {
+        res.data.forEach(spice => { // Updated variable name
+          $('#updated_load-films-id').append(`<option value="${spice.id}">${spice.title}</option>`);
+        });
+      } else {
+        console.log("No data found in response");
+      }
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  });
+});
+
+
+
+const editCustomer = (id,hallName ,  filmTitle ,timeDescription) => {
+  // Open the update modal
+  $('#updateCustomerModal').modal('show');
+
+  // Set the values in the form fields
+  $('#updated_id').val(id);
+
+
+
+  if ($('#updated_load-film-id option[value="' + timeDescription + '"]').length === 0) {
+    $('#updated_load-film-id').append('<option value="' + timeDescription + '">' + timeDescription + '</option>');
+  }
+
+  // Set the dropdown value to hallName
+  $('#updated_load-film-id').val(timeDescription);
+
+
+
+
+  if ($('#updated_load-hall-id option[value="' + hallName + '"]').length === 0) {
+    $('#updated_load-hall-id').append('<option value="' + hallName + '">' + hallName + '</option>');
+  }
+
+  // Set the dropdown value to hallName
+  $('#updated_load-hall-id').val(hallName);
+
+
+
+  if ($('#updated_load-films-id option[value="' +  filmTitle + '"]').length === 0) {
+    $('#updated_load-films-id').append('<option value="' + filmTitle + '">' + filmTitle + '</option>');
+  }
+
+  // Set the dropdown value to hallName
+  $('#updated_load-films-id').val(filmTitle);
+
+}
+
+
+
+
+
+$('#btn_update_customer').click((e) => {
+  e.preventDefault();
+
+  const seatId = $("#updated_id").val();
+
+  const seatTypeId = $('#updated_load-film-id').val();
+  const filmHallId = $('#updated_load-hall-id').val();
+  const fil = $('#updated_load-films-id').val();
+
+  const seatData = {
+    id: seatId,
+
+     timeTable: {
+      id: seatTypeId
+    },
+    filmHall: {
+      id: filmHallId
+    },
+
+    film: {
+      id: fil
+    },
+  };
+
+  $.ajax({
+    url: 'http://localhost:8080/api/v1/film-registration/update',
+    type: "PUT",
+    data: JSON.stringify(seatData),
+    contentType: "application/json",
+    success: (res) => {
+      console.log(res);
+      getAllCustomer();
+      alert("Seat updated successfully!");
+      $('#updateCustomerModal').modal('hide');
+    },
+    error: (err) => {
+      console.log(err);
+      alert("Error updating seat: " + (err.responseJSON?.message || "Unknown error"));
+    }
+  });
+})

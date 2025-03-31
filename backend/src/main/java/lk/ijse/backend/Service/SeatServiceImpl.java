@@ -109,8 +109,8 @@ public class SeatServiceImpl implements SeatService{
 
     @Override
     public void update(SeatsDTO seatDTO) {
-        if(seatTypeRepo.existsById(seatDTO.getId())){
-            seatTypeRepo.save(modelMapper.map(seatDTO,SeatType.class));
+        if(seatRepo.existsById(seatDTO.getId())){
+            seatRepo.save(modelMapper.map(seatDTO,Seats.class));
         }
 
         else {

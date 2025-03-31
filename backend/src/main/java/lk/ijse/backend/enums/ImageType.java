@@ -1,5 +1,5 @@
 package lk.ijse.backend.enums;
 
 public enum ImageType {
-    FILM, FILMHALL,EXAMPLE
+   UPFILM, FILM, FILMHALL,EXAMPLE
 }

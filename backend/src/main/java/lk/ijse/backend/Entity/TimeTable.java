@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,10 +22,10 @@ public class TimeTable {
     private  String description;
 
     @Column(name = "show_time", nullable = false)
-    private LocalDateTime showTime;
+    private LocalTime showTime;
 
     @Column(name = "end_time")
-    private LocalDateTime endTime;
+    private LocalTime endTime;
 
 
 
@@ -45,19 +46,19 @@ public class TimeTable {
         this.id = id;
     }
 
-    public LocalDateTime getShowTime() {
+    public LocalTime getShowTime() {
         return showTime;
     }
 
-    public void setShowTime(LocalDateTime showTime) {
+    public void setShowTime(LocalTime showTime) {
         this.showTime = showTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
@@ -77,7 +78,7 @@ public class TimeTable {
         this.description = description;
     }
 
-    public TimeTable(Long id, String description, LocalDateTime showTime, LocalDateTime endTime) {
+    public TimeTable(Long id, String description, LocalTime showTime, LocalTime endTime) {
         this.id = id;
         this.description = description;
         this.showTime = showTime;

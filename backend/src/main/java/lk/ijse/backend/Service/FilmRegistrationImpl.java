@@ -1,9 +1,11 @@
 package lk.ijse.backend.Service;
 
 import lk.ijse.backend.DTO.FilmRegistrationDTO;
+import lk.ijse.backend.DTO.SeatsDTO;
 import lk.ijse.backend.DTO.TimeTableDTO;
 import lk.ijse.backend.Entity.FilmHall;
 import lk.ijse.backend.Entity.FilmRegistration;
+import lk.ijse.backend.Entity.Seats;
 import lk.ijse.backend.Entity.TimeTable;
 import lk.ijse.backend.repo.FilmRegistrationRepo;
 import lk.ijse.backend.repo.TimeTableRepo;
@@ -18,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class FilmRegistrationImpl implements FilmRegistrationService{
+public class FilmRegistrationImpl implements FilmRegistrationService {
 
 
     @Autowired
@@ -31,13 +33,12 @@ public class FilmRegistrationImpl implements FilmRegistrationService{
     public void save(FilmRegistrationDTO filmRegistrationDTO) {
 
 
-
-
-            if( filmRegistrationRepo.existsById(filmRegistrationDTO.getId()))  {throw new RuntimeException("Fill Hall Already exists");}
-             filmRegistrationRepo.save(modelMapper.map(filmRegistrationDTO, FilmRegistration.class));
+        if (filmRegistrationRepo.existsById(filmRegistrationDTO.getId())) {
+            throw new RuntimeException("Fill Hall Already exists");
+        }
+        filmRegistrationRepo.save(modelMapper.map(filmRegistrationDTO, FilmRegistration.class));
 
     }
-
 
 
     @Override
@@ -59,9 +60,6 @@ public class FilmRegistrationImpl implements FilmRegistrationService{
     }
 
 
-
-
-
     public void delete(Long id) {
         if (filmRegistrationRepo.existsById(id)) {
             filmRegistrationRepo.deleteFilmRegistrationById(id);
@@ -70,8 +68,14 @@ public class FilmRegistrationImpl implements FilmRegistrationService{
         }
 
 
+    }
 
 
+    @Override
+    public void update(FilmRegistrationDTO filmRegistrationDTO) {
+        if (filmRegistrationRepo.existsById(filmRegistrationDTO.getId())) {
+            filmRegistrationRepo.save(modelMapper.map(filmRegistrationDTO, FilmRegistration.class));
         }
     }
+}
 

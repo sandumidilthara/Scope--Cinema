@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Film Details - Scope Cinemas</title>
+
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #1C1C3F;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .film-detail-container {
+      padding: 50px 0;
+    }
+
+    .film-poster {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .film-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .film-meta {
+      margin-bottom: 20px;
+    }
+
+    .meta-item {
+      margin-right: 20px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .meta-item i {
+      margin-right: 5px;
+      color: #e5b632;
+    }
+
+    .film-description {
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .film-cast, .film-details {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #3d3d6b;
+      padding-bottom: 8px;
+    }
+
+    .action-buttons .btn {
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    .nav-links a {
+      color: pink;
+      padding: 0 15px;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .back-button {
+      margin-bottom: 20px;
+    }
+
+    .badge-genre {
+      background-color: #3d3d6b;
+      margin-right: 5px;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <a class="navbar-brand" href="#">SCOPE CINEMAS</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="home.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-danger" href="movies.html">Movies</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="location.html">Locations</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Deals and Exclusives</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Advertise</a>
+      </li>
+    </ul>
+    <a class="btn btn-primary" href="#">Buy Tickets</a>
+    <a class="btn btn-secondary ml-2" href="#">Login</a>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="nav-links">
+        <a href="home.html">HOME</a> /
+        <a href="movies.html">MOVIES</a> /
+        <span id="filmTitleBreadcrumb">FILM DETAILS</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <button class="btn btn-outline-light back-button" onclick="goBack()">
+        <i class="bi bi-arrow-left"></i> Back to Movies
+      </button>
+    </div>
+  </div>
+
+  <div class="film-detail-container">
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <img id="filmPoster" src="assets/images/no-image-placeholder.png" alt="Film Poster" class="film-poster">
+
+        <div class="action-buttons mt-4">
+          <button class="btn btn-primary btn-block" id="buyTicketsBtn">
+            <i class="bi bi-ticket-detailed"></i> Buy Tickets
+          </button>
+          <button class="btn btn-outline-light btn-block" id="watchTrailerBtn">
+            <i class="bi bi-play-circle"></i> Watch Trailer
+          </button>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <h1 class="film-title" id="filmTitle">Film Title</h1>
+
+        <div class="film-meta">
+            <span class="meta-item" id="filmDuration">
+              <i class="bi bi-clock"></i> 120 min
+            </span>
+          <span class="meta-item" id="filmLanguage">
+              <i class="bi bi-translate"></i> English
+            </span>
+          <span class="meta-item" id="filmReleaseDate">
+              <i class="bi bi-calendar-event"></i> Release Date
+            </span>
+        </div>
+
+        <div class="film-genres mb-3" id="filmGenres">
+          <span class="badge badge-genre">Action</span>
+          <span class="badge badge-genre">Adventure</span>
+        </div>
+
+        <div class="film-description">
+          <div class="section-title">Synopsis</div>
+          <p id="filmDescription">Film description will appear here.</p>
+        </div>
+
+        <div class="film-cast">
+          <div class="section-title">Cast</div>
+          <p id="filmCast">Cast members will appear here.</p>
+        </div>
+
+        <div class="film-details">
+          <div class="section-title">Details</div>
+          <p><strong>Team:</strong> <span id="filmTeam">Team information</span></p>
+          <p><strong>ID:</strong> <span id="filmId">Film ID</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Set film details from URL parameters
+    document.getElementById('filmTitle').textContent = urlParams.get('title') || 'Untitled Film';
+    document.getElementById('filmTitleBreadcrumb').textContent = urlParams.get('title') || 'FILM DETAILS';
+    document.getElementById('filmDescription').textContent = urlParams.get('description') || 'No description available';
+    document.getElementById('filmDuration').innerHTML = `<i class="bi bi-clock"></i> ${urlParams.get('durationMinutes') || 'N/A'} min`;
+    document.getElementById('filmLanguage').innerHTML = `<i class="bi bi-translate"></i> ${urlParams.get('language') || 'N/A'}`;
+    document.getElementById('filmReleaseDate').innerHTML = `<i class="bi bi-calendar-event"></i> ${urlParams.get('releaseDate') || 'N/A'}`;
+    document.getElementById('filmCast').textContent = urlParams.get('cast') || 'Cast information not available';
+    document.getElementById('filmTeam').textContent = urlParams.get('team') || 'Team information not available';
+    document.getElementById('filmId').textContent = urlParams.get('id') || 'ID not available';
+
+
+    const hasImage = urlParams.get('hasImage') === 'true';
+    if (hasImage) {
+      const filmId = urlParams.get('id');
+      if (filmId) {
+
+        $.ajax({
+          url: 'http://localhost:8080/api/v1/film/get',
+          type: "GET",
+          success: (res) => {
+
+
+            res.data.forEach(customer => {
+
+              if(customer.id ==filmId){ document.getElementById('filmPoster').src = `data:image/png;base64,${customer.imageUrl}`;}
+            })
+
+
+          } }) } }
+
+
+
+
+
+
+
+        // Set film genres
+    const genreString = urlParams.get('genre') || '';
+    const genresContainer = document.getElementById('filmGenres');
+    genresContainer.innerHTML = '';
+
+    if (genreString) {
+      const genres = genreString.split(',');
+      genres.forEach(genre => {
+        if (genre.trim()) {
+          const badge = document.createElement('span');
+          badge.className = 'badge badge-genre';
+          badge.textContent = genre.trim();
+          genresContainer.appendChild(badge);
+        }
+      });
+    } else {
+      const badge = document.createElement('span');
+      badge.className = 'badge badge-genre';
+      badge.textContent = 'Not Specified';
+      genresContainer.appendChild(badge);
+    }
+
+    // Set up trailer button functionality
+    const trailerUrl = urlParams.get('trailerUrl');
+    const watchTrailerBtn = document.getElementById('watchTrailerBtn');
+
+    watchTrailerBtn.addEventListener('click', function() {
+      if (trailerUrl) {
+        window.open(trailerUrl, '_blank');
+      } else {
+        alert('No trailer available for this film.');
+      }
+    });
+
+    // Set up buy tickets button
+    document.getElementById('buyTicketsBtn').addEventListener('click', function() {
+      alert('Buy tickets functionality will be implemented here.');
+      // Implement your ticket buying logic here
+    });
+  });
+
+  function goBack() {
+    window.history.back();
+  }
+</script>
+</body>
+</html>

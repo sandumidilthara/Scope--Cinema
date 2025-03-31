@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
+
+
 <body>
 <div class="container mt-5">
 
@@ -17,7 +19,7 @@
 
   <button id="addBtn" type="button" class="btn  mb-3 text-right" data-bs-toggle="modal"
           data-bs-target="#customerModal">
-    Add Item
+    Add
   </button>
 
   <!--     add student modal-->
@@ -73,6 +75,84 @@
 
 
 
+  <div class="modal fade" id="updateCustomerModal" tabindex="-1" aria-labelledby="updateCustomerModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="container m-2">
+          <form>
+            <h2>UPDATE ITEM</h2>
+            <div class="mb-4 box-container">
+              <div class="box-label">
+                <label for="updated_id" class="form-label">ID</label>
+              </div>
+              <input type="text" class="form-control" id="updated_id">
+            </div>
+
+
+
+
+
+            <button id="updated_load-cus-ids" class="btn btn-primary">Load Time Tables</button>
+            <div class="form-group">
+              <label for="updated_load-film-id">Select Time Table:</label>
+              <select class="form-control" id="updated_load-film-id">
+                <option value="">-- Select Time Table --</option>
+              </select>
+            </div>
+
+            <!-- Film Hall Dropdown -->
+            <button id="updated_load-hall-ids" class="btn btn-primary">Load Film Hall</button>
+            <div class="form-group">
+              <label for="updated_load-hall-id">Select Film Hall:</label>
+              <select class="form-control" id="updated_load-hall-id">
+                <option value="">-- Select Film Hall --</option>
+              </select>
+            </div>
+
+            <!-- Film Dropdown -->
+            <button id="updated_load-films-ids" class="btn btn-primary">Load Film</button>
+            <div class="form-group">
+              <label for="updated_load-films-id">Select Film:</label>
+              <select class="form-control" id="updated_load-films-id">
+                <option value="">-- Select Film --</option>
+              </select>
+            </div>
+
+
+
+            <button id="btn_update_customer" type="submit" class="btn btn-primary">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -85,9 +165,9 @@
       <!--      <td>Profile</td>-->
       <td>ID</td>
 
-      <td>DESCRIPTION</td>
-      <td>SHOW TIME</td>
-      <td>END TIME</td>
+      <td>TIME TABLE</td>
+      <td>FILM HALL</td>
+      <td>FILM</td>
 
 
       <td>Update</td>

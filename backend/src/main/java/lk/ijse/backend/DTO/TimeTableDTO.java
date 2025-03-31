@@ -2,6 +2,7 @@ package lk.ijse.backend.DTO;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 
 public class TimeTableDTO {
@@ -17,11 +18,11 @@ public class TimeTableDTO {
     private  String description;
 
 
-    private LocalDateTime showTime;
+    private LocalTime showTime;
 
-    private LocalDateTime endTime;
+    private LocalTime endTime;
 
-    public TimeTableDTO(Long id, String description, LocalDateTime showTime, LocalDateTime endTime) {
+    public TimeTableDTO(Long id, String description, LocalTime showTime, LocalTime endTime) {
         this.id = id;
         this.description = description;
         this.showTime = showTime;
@@ -48,19 +49,19 @@ public class TimeTableDTO {
         this.description = description;
     }
 
-    public LocalDateTime getShowTime() {
+    public LocalTime getShowTime() {
         return showTime;
     }
 
-    public void setShowTime(LocalDateTime showTime) {
+    public void setShowTime(LocalTime showTime) {
         this.showTime = showTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 }

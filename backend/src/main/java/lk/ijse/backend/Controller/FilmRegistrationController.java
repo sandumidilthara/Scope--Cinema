@@ -1,6 +1,7 @@
 package lk.ijse.backend.Controller;
 
 import lk.ijse.backend.DTO.FilmRegistrationDTO;
+import lk.ijse.backend.DTO.SeatsDTO;
 import lk.ijse.backend.DTO.TimeTableDTO;
 import lk.ijse.backend.Service.FilmRegistrationService;
 import lk.ijse.backend.Service.TimeTableService;
@@ -35,11 +36,13 @@ public class FilmRegistrationController {
     }
 
 
-//    @DeleteMapping(path = "delete/{id}")
-//    public ResponceUtil deleteCustomer(@PathVariable(value = "id") Long id){
-//         filmRegistrationService.delete(id);
-//        return new ResponceUtil(200,"film hall deleted" ,null);
-//    }
+    @PutMapping(path = "update")
+    public  ResponceUtil update(@RequestBody  FilmRegistrationDTO filmRegistrationDTO){
+         filmRegistrationService.update(filmRegistrationDTO);
+        return new ResponceUtil( 201,"film hall is updated" ,null);
+
+    }
+
 
 
     @DeleteMapping(path = "delete/{id}")

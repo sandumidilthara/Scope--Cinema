@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seat Selection - Scope Cinemas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    .navbar-custom {
+      background-color: #0c0c2f;
+    }
+    .navbar-custom .nav-link {
+      color: white;
+      margin-right: 15px;
+    }
+    .navbar-custom .nav-link:hover {
+      color: #f8f9fa;
+    }
+    .booking-info {
+      background-color: #f4f4f4;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .booking-info-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .booking-info-item {
+      flex: 1;
+      min-width: 200px;
+      background-color: white;
+      border-radius: 5px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .booking-info-item h5 {
+      color: #0c0c2f;
+      margin-bottom: 8px;
+    }
+    .btn-purple {
+      background-color: #4a148c;
+      color: white;
+    }
+    .btn-purple:hover {
+      background-color: #6a1b9a;
+      color: white;
+    }
+    #seat-map {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .seat-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    .seat-label {
+      width: 30px;
+      text-align: right;
+      margin-right: 10px;
+      color: #6c757d;
+    }
+    .seat {
+      width: 40px;
+      height: 40px;
+      margin: 2px;
+      border: 1px solid #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .available { background-color: white; }
+    .reserved { background-color: red; color: white; }
+    .selected { background-color: blue; color: white; }
+    .unavailable { background-color: pink; }
+    .screen {
+      width: 100%;
+      height: 50px;
+      background-color: #333;
+      color: white;
+      text-align: center;
+      line-height: 50px;
+      margin-bottom: 20px;
+    }
+    .aisle-space {
+      width: 40px;
+      border-right: 2px solid #dee2e6;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white" href="#"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#">HOME</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">MOVIES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">LOCATIONS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">DEALS AND EXCLUSIVES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">ADVERTISE</a>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <a href="#" class="btn btn-purple me-2">BUY TICKETS</a>
+        <a href="#" class="btn btn-outline-light">LOGIN</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <h2 class="mb-4">Seat Selection</h2>
+
+  <!-- Booking Information Section -->
+  <div class="booking-info-container" id="bookingInfoContainer">
+    <!-- Dynamic divs will be added here -->
+  </div>
+
+  <!-- Seat Map Section -->
+  <div class="row">
+    <div class="col-12 text-center">
+      <div class="screen">SCREEN</div>
+    </div>
+  </div>
+
+  <div id="seat-map">
+    <div id="seat-container"></div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12 text-center">
+      <div class="d-inline-block">
+        <div class="d-flex align-items-center mb-2">
+          <div class="seat available me-2"></div>
+          <span>Available</span>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+          <div class="seat reserved me-2"></div>
+          <span>Reserved</span>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="seat selected me-2"></div>
+          <span>Selected</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4 mb-5">
+    <div class="col-12 d-flex justify-content-between">
+
+      <button id="continueButton" class="btn btn-purple" onclick="booking()">Continue</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Retrieve values from localStorage
+    const selectedFilm = localStorage.getItem('selectedFilm') || 'Not selected';
+    const selectedHall = localStorage.getItem('selectedHall') || 'Not selected';
+    const selectedDate = localStorage.getItem('selectedDate') || 'Not selected';
+    const selectedTime = localStorage.getItem('selectedTime') || 'Not selected';
+
+    // Create the booking info container
+    const bookingInfoContainer = document.getElementById('bookingInfoContainer');
+
+    // Create and append 4 divs with the booking information
+    const infoItems = [
+      { label: 'Movie', value: selectedFilm, icon: 'fas fa-film' },
+      { label: 'Cinema', value: selectedHall, icon: 'fas fa-building' },
+      { label: 'Date', value: selectedDate, icon: 'far fa-calendar-alt' },
+      { label: 'Time', value: selectedTime, icon: 'far fa-clock' }
+    ];
+
+    infoItems.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'booking-info-item';
+      div.innerHTML = `
+        <h5><i class="${item.icon} me-2"></i>${item.label}</h5>
+        <p class="mb-0">${item.value}</p>
+      `;
+      bookingInfoContainer.appendChild(div);
+    });
+
+    // Initialize seat map
+   // createSeatMap();
+  });
+
+  // Seat map functionality
+  const rowLetters = ['F', 'E', 'D', 'C', 'B', 'A'];
+  const rowLettersWithFullColumns = ['F', 'E'];
+  const seats = {
+    'E': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'],
+    'F': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'],
+    'default': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13']
+  };
+  const reservedSeats = [
+
+  ];
+
+  console.log("pk" + reservedSeats)
+  let selectedSeats = [];
+
+  function createSeatMap() {
+    const container = document.getElementById('seat-container');
+
+    rowLetters.forEach(row => {
+      const rowElement = document.createElement('div');
+      rowElement.className = 'seat-row';
+
+      const rowLabel = document.createElement('div');
+      rowLabel.className = 'seat-label';
+      rowLabel.textContent = row;
+      rowElement.appendChild(rowLabel);
+
+      // Determine which seats to use based on the row
+      const rowSeats = rowLettersWithFullColumns.includes(row) ? seats[row] : seats['default'];
+
+      rowSeats.forEach((seat, index) => {
+        // Add aisle space after the 3rd seat
+        if (index === 3) {
+          const aisleSpace = document.createElement('div');
+          aisleSpace.className = 'aisle-space';
+          rowElement.appendChild(aisleSpace);
+        }
+
+        const seatElement = document.createElement('div');
+        seatElement.className = 'seat';
+        seatElement.textContent = seat;
+
+        const seatId = row + seat;
+        if (reservedSeats.includes(seatId)) {
+          seatElement.classList.add('reserved');
+        } else {
+          seatElement.classList.add('available');
+
+          // Add click event to toggle selection
+          seatElement.addEventListener('click', function() {
+            if (this.classList.contains('available')) {
+              if (this.classList.contains('selected')) {
+                this.classList.remove('selected');
+                // Remove from selected seats array
+                const index = selectedSeats.indexOf(seatId);
+                if (index > -1) {
+                  selectedSeats.splice(index, 1);
+                }
+              } else {
+                this.classList.add('selected');
+                // Add to selected seats array
+                selectedSeats.push(seatId);
+              }
+            }
+          });
+        }
+
+        rowElement.appendChild(seatElement);
+      });
+
+      container.appendChild(rowElement);
+    });
+  }
+
+  // Continue button functionality
+  document.getElementById('continueButton').addEventListener('click', function() {
+    if (selectedSeats.length > 0) {
+      // Store selected seats in localStorage
+      localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+
+      // Navigate to payment page (you can replace this with your actual payment page)
+      alert('Selected seats: ' + selectedSeats.join(', '));
+      // window.location.href = 'payment.html';
+    } else {
+      alert('Please select at least one seat to continue.');
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="js/jquery-3.7.1.min.js"></script>
+
+
+<script src="js/hh.js"></script>
+</body>
+</html>
+
+

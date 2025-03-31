@@ -1,0 +1,99 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      background-color: #1C1C3F; /* Set the background color to black */
+      color: white; /* Optional: Set text color to white for better visibility */
+    }
+
+
+    .now-showing {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .nav-links a {
+      color: pink; /* Pink color for links */
+      padding: 0 15px;
+    }
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    .separator {
+      border-top: 1px solid white;
+      margin: 20px auto;
+      width: 50%; /* Adjust the width of the separator */
+    }
+
+
+
+  </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark  ">
+  <a class="navbar-brand" href="#">SCOPE CINEMAS</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="home.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-danger" href="movies.html">Movies</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="location.html">Locations</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Deals and Exclusives</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Advertise</a>
+      </li>
+    </ul>
+    <a class="btn btn-primary" href="#">Buy Tickets</a>
+    <a class="btn btn-secondary ml-2" href="#">Login</a>
+  </div>
+</nav>
+
+
+
+<div class="container">
+  <div class="now-showing">
+    <h1>LOCATIONS</h1>
+    <div class="separator"></div>
+    <div class="nav-links">
+      <a href="#">HOME</a> /
+      <a href="#">LOCATIONS</a>
+    </div>
+  </div>
+</div>
+<div class="container mt-4">
+  <h2></h2>
+
+  <div class="row" id="spiceContainer">
+    <!-- Spice cards will be dynamically generated here -->
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="js/location.js"></script>
+</body>
+</html>
+
+
+
+
+

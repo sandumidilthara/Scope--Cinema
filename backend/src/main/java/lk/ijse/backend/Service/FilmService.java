@@ -15,6 +15,7 @@ public interface FilmService {
 
     public void delete(UUID id);
 
+    public FilmDTO<String> getFilmImage(UUID filmId);
 
 
    public FilmDTO<String> update(UUID id, FilmDTO spiceDTO, MultipartFile file);

@@ -17,12 +17,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 @Service
-public class FilmServiceImpl implements FilmService{
+public class FilmServiceImpl implements FilmService {
 
 
 //
@@ -67,65 +67,61 @@ public class FilmServiceImpl implements FilmService{
 //    }
 
 
+    private static final Logger logger = LoggerFactory.getLogger(FilmServiceImpl.class);
 
+    @Autowired
+    private FilmRepo filmRepo;
 
+    @Autowired
+    private ModelMapper modelMapper;
 
+    @Autowired
+    private ImageUtil imageUtil;
 
-
-        private static final Logger logger = LoggerFactory.getLogger(FilmServiceImpl.class);
-
-        @Autowired
-        private FilmRepo filmRepo;
-
-        @Autowired
-        private ModelMapper modelMapper;
-
-        @Autowired
-        private ImageUtil imageUtil;
-
-        @Override
-        @Transactional
-        public FilmDTO<String> save(FilmDTO filmDTO, MultipartFile file) {
-            String base64Image;
-            try {
-                base64Image = imageUtil.saveImage(ImageType.FILM, file);
-                logger.info("Base64 image: {}", base64Image);
-            } catch (Exception e) {
-                logger.error("Failed to save image", e);
-                throw new RuntimeException("Failed to save image: " + e.getMessage());
-            }
-
-            Film film = modelMapper.map(filmDTO, Film.class);
-            film.setImageUrl(base64Image);
-            try {
-                Film savedFilm = filmRepo.save(film);
-                FilmDTO<String> stringFilmDTO = modelMapper.map(savedFilm, FilmDTO.class);
-                stringFilmDTO.setImageUrl(base64Image);
-                return stringFilmDTO;
-            } catch (Exception e) {
-                logger.error("Failed to save film: {}", film, e);
-                throw new RuntimeException("Failed to save film: " + e.getMessage());
-            }
+    @Override
+    @Transactional
+    public FilmDTO<String> save(FilmDTO filmDTO, MultipartFile file) {
+        String base64Image;
+        try {
+            base64Image = imageUtil.saveImage(ImageType.FILM, file);
+            logger.info("Base64 image: {}", base64Image);
+        } catch (Exception e) {
+            logger.error("Failed to save image", e);
+            throw new RuntimeException("Failed to save image: " + e.getMessage());
         }
 
-        @Override
-        public List<FilmDTO<String>> getAll() {
-            List<Film> films = filmRepo.findAll();
-            List<FilmDTO<String>> filmDTOs = modelMapper.map(films, new TypeToken<List<FilmDTO<String>>>() {}.getType());
-            for (FilmDTO<String> filmDTO : filmDTOs) {
-                films.stream().filter(film ->
-                                film.getId().equals(filmDTO.getId()))
-                        .findFirst()
-                        .ifPresent(film -> filmDTO.setImageUrl(imageUtil.getImage(film.getImageUrl())));
-            }
-            return filmDTOs;
+        Film film = modelMapper.map(filmDTO, Film.class);
+        film.setImageUrl(base64Image);
+        try {
+            Film savedFilm = filmRepo.save(film);
+            FilmDTO<String> stringFilmDTO = modelMapper.map(savedFilm, FilmDTO.class);
+            stringFilmDTO.setImageUrl(base64Image);
+            return stringFilmDTO;
+        } catch (Exception e) {
+            logger.error("Failed to save film: {}", film, e);
+            throw new RuntimeException("Failed to save film: " + e.getMessage());
         }
+    }
+
+    @Override
+    public List<FilmDTO<String>> getAll() {
+        List<Film> films = filmRepo.findAll();
+        List<FilmDTO<String>> filmDTOs = modelMapper.map(films, new TypeToken<List<FilmDTO<String>>>() {
+        }.getType());
+        for (FilmDTO<String> filmDTO : filmDTOs) {
+            films.stream().filter(film ->
+                            film.getId().equals(filmDTO.getId()))
+                    .findFirst()
+                    .ifPresent(film -> filmDTO.setImageUrl(imageUtil.getImage(film.getImageUrl())));
+        }
+        return filmDTOs;
+    }
 
     @Override
     public void delete(UUID id) {
-        if(filmRepo.existsById(id)){filmRepo.deleteById(id);
-        }
-        else {
+        if (filmRepo.existsById(id)) {
+            filmRepo.deleteById(id);
+        } else {
             throw new RuntimeException("Film Hall does not exists");
         }
     }
@@ -165,6 +161,35 @@ public class FilmServiceImpl implements FilmService{
         }
     }
 
+
+
+
+
+
+    public FilmDTO<String> getFilmImage(UUID filmId) {
+        Optional<Film> filmOptional = filmRepo.findById(filmId);
+        if (filmOptional.isPresent()) {
+            Film film = filmOptional.get();
+            return new FilmDTO<>(film.getId(), film.getTitle(), film.getDescription(), film.getGenre(),
+                    film.getTeam(), film.getDurationMinutes(), film.getReleaseDate(), film.getLanguage(),
+                    film.getCast(), film.getImageUrl(), film.getTrailerUrl());
+        }
+        return null; // or throw an exception
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
