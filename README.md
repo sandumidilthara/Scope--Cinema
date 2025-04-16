@@ -37,10 +37,11 @@ Once logged into the system as a user, the user will be granted the right to boo
 
 *An admin can manage the filming schedules
 
-*An a![Screenshot 2025-04-16 212615](https://github.com/user-attachments/assets/b5d64e7e-6060-4688-960c-5c934abea4b5)
+ ![Screenshot 2025-04-16 212615](https://github.com/user-attachments/assets/b5d64e7e-6060-4688-960c-5c934abea4b5)
 
-dmin can manage upcoming films
+*An admin can manage upcoming films
 
+![Screenshot 2025-04-16 212625](https://github.com/user-attachments/assets/03e99044-4b00-4912-92e9-ad08a44058d3)
 
 
 #User Feactures :
