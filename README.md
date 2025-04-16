@@ -38,12 +38,22 @@ in can view bookings
 dmin can manage upcoming films
 
 
+
 #User Feactures :
 
 *A user has the ability to book a film ticket online. An email will be sent to the user's email address to confirm the user's booking
 
+![Screenshot 2025-04-16 212730](https://github.com/user-attachments/assets/376ef533-de38-46f6-b0e7-f5bb90501dea)
 
 *A user can watch the trailer of the films
 
+![Screenshot 2025-04-16 212814](https://github.com/user-attachments/assets/96448d99-b074-4c43-9818-2f6dd7dd666f)
+
+
 *A user can view more details about the film (genre, cast, team, duration...etc)
-*Also, a user can watch upcoming films
+
+*Also,![Screenshot 2025-04-16 212747](https://github.com/user-attachments/assets/9793b567-1a71-4c13-b863-8450d691a07b)
+
+ a user can watch upcoming films
+ 
+![Screenshot 2025-04-16 212834](https://github.com/user-attachments/assets/214662f0-b8e4-4620-9198-8dfad1a8cc91)
