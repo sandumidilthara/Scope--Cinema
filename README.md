@@ -16,22 +16,21 @@ Once logged into the system as a user, the user will be granted the right to boo
 
 *An admin can manage the film halls
 
+![Screenshot 2025-04-16 212545](https://github.com/user-attachments/assets/16f2af85-69a0-4607-bd3a-5c3687eafa32)
+
 *An admin can manage the users
 
-![Screenshot 2025-04-16 212545](https://github.com/user-attachments/assets/16f2af85-69a0-4607-bd3a-5c3687eafa32)
+ ![Screenshot 2025-04-16 212653](https://github.com/user-attachments/assets/d0c8a4dc-4fd6-490d-a86c-2696d8ddf787)
 
  
 
 *An admin can register a film (in which film hall and at what time the film will be shown)
 
-![Screenshot 2025-04-16 212653](https://github.com/user-attachments/assets/d0c8a4dc-4fd6-490d-a86c-2696d8ddf787)
-
+ ![Screenshot 2025-04-16 212638](https://github.com/user-attachments/assets/18fa3365-5046-44f9-9c27-fde86b11d475)
  
 
 *An adm in can view bookings
 
-![Screenshot 2025-04-16 212638](https://github.com/user-attachments/assets/18fa3365-5046-44f9-9c27-fde86b11d475)
- 
 *An admin can manage seats in the film hall 
 
  ![Screenshot 2025-04-16 212604](https://github.com/user-attachments/assets/519c74f1-17d5-4966-bfa1-18693528f54c)
