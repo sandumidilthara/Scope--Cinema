@@ -64,7 +64,7 @@ function createSpiceCard(spice, index) {
       <div class="card-body d-flex flex-column">
         <h5 class="card-title text-truncate mb-2 fw-bold">${spice.title}</h5>
         <p class="card-text text-muted flex-grow-1 mb-3">
-          ${spice.description || 'No description available'}
+          ${spice.title || 'No description available'}
         </p>
         <div class="d-flex justify-content-between align-items-center">
           <span class="badge bg-primary rounded-pill">
@@ -78,10 +78,10 @@ function createSpiceCard(spice, index) {
       </div>
       <div class="card-footer bg-transparent border-0 pt-0 pb-3">
         <div class="action-buttons d-flex flex-column gap-2">
-          <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center" onclick="buyTicketsOnline(${index})">
-            <i class="bi bi-ticket-detailed me-2"></i>Buy Tickets Online
-          </button>
 
+<button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center" onclick="location.href='booking.html'">
+    <i class="bi bi-ticket-detailed me-2"></i>Buy Tickets Online
+</button>
           <button class="btn btn-outline-info w-100 d-flex align-items-center justify-content-center" onclick="moreInfo(${index})">
             <i class="bi bi-info-circle me-2"></i>More Info
           </button>

@@ -10,17 +10,6 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"></a>
-    <span class="navbar-toggler-icon"></span>
-    <div class="collapse navbar-collapse" id="adminNavbar">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
 
 <!-- Button to show the modal -->
 <button id="showFormButton" class="btn btn-success m-3" data-toggle="modal" data-target="#addSpiceModal">Add</button>
@@ -30,7 +19,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addSpiceModalLabel">Add Spice</h5>
+        <h5 class="modal-title" id="addSpiceModalLabel">Add FILM HALL</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -66,7 +55,7 @@
             <label for="spiceImageURL" class="form-label">Image URL</label>
             <input type="file" class="form-control" id="spiceImageURL" required>
           </div>
-          <button type="submit" class="btn btn-primary">Add Spice</button>
+          <button type="submit" class="btn btn-primary">Add FILM HALL</button>
         </form>
       </div>
     </div>
@@ -94,7 +83,7 @@
     <div class="modal-content">
       <div class="container m-2">
         <form>
-          <h2>UPDATE ITEM</h2>
+          <h2>UPDATE FILM HALL</h2>
 
 
 
@@ -113,7 +102,7 @@
 
           <div class="mb-4 box-container">
             <div class="box-label">
-              <label for="updated_capacity" class="form-label"> CAPACITY</label>
+              <label for="updated_capacity" class="form-label"> CONTACT NUMBER</label>
             </div>
             <input type="text" class="form-control" id="updated_capacity">
           </div>
@@ -136,7 +125,7 @@
 
           <div class="mb-4 box-container">
             <div class="box-label">
-              <label for="updated_hall" class="form-label">HALL TYPE</label>
+              <label for="updated_hall" class="form-label">EMAIL</label>
             </div>
             <input type="text" class="form-control" id="updated_hall">
           </div>
@@ -144,7 +133,7 @@
 
 
           <div class="mb-3">
-            <label for="edit_image" class="form-label">Room Image (Optional)</label>
+            <label for="edit_image" class="form-label"> Image (Optional)</label>
             <input type="file" class="form-control" id="edit_image" accept="image/*">
             <small  class="text-muted">Leave empty to keep current image</small>
           </div>

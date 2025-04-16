@@ -10,27 +10,17 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"></a>
-    <span class="navbar-toggler-icon"></span>
-    <div class="collapse navbar-collapse" id="adminNavbar">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+
 
 <!-- Button to show the modal -->
-<button id="showFormButton" class="btn btn-success m-3" data-toggle="modal" data-target="#addSpiceModal">Add Item</button>
+<button id="showFormButton" class="btn btn-success m-3" data-toggle="modal" data-target="#addSpiceModal">Add </button>
 
 <!-- Spice Form Modal -->
 <div class="modal fade" id="addSpiceModal" tabindex="-1" aria-labelledby="addSpiceModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addSpiceModalLabel">Add Spice</h5>
+        <h5 class="modal-title" id="addSpiceModalLabel">Add UpComing Film</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -92,7 +82,7 @@
             <label for="imageUrl" class="form-label">Image URL</label>
             <input type="file" class="form-control" id="imageUrl" required>
           </div>
-          <button type="submit" class="btn btn-primary">Add Spice</button>
+          <button type="submit" class="btn btn-primary">Add UpComing Film</button>
         </form>
       </div>
     </div>
@@ -108,7 +98,7 @@
     <div class="modal-content">
       <div class="container m-2">
         <form>
-          <h2>UPDATE ITEM</h2>
+          <h2>UPDATE UpComing Film</h2>
 
 
 
@@ -120,21 +110,21 @@
           </div>
           <div class="mb-3 box-container">
             <div class="box-label">
-              <label for="updated_film_title" class="form-label">  NAME</label>
+              <label for="updated_film_title" class="form-label">  TITLE</label>
             </div>
             <input type="text" class="form-control" id="updated_film_title">
           </div>
 
           <div class="mb-4 box-container">
             <div class="box-label">
-              <label for="updated_description" class="form-label"> CAPACITY</label>
+              <label for="updated_description" class="form-label"> DESCRIPRION</label>
             </div>
             <input type="text" class="form-control" id="updated_description">
           </div>
 
           <div class="mb-4 box-container">
             <div class="box-label">
-              <label for="updated_genre" class="form-label">LOCATION</label>
+              <label for="updated_genre" class="form-label">GENRE</label>
             </div>
             <input type="text" class="form-control" id="updated_genre">
           </div>
@@ -142,7 +132,7 @@
 
           <div class="mb-4 box-container">
             <div class="box-label">
-              <label for="updated_team" class="form-label">DESCRIPTION</label>
+              <label for="updated_team" class="form-label">TEAM</label>
             </div>
             <input type="text" class="form-control" id="updated_team">
           </div>
@@ -150,21 +140,21 @@
 
           <div class="mb-4 box-container">
             <div class="box-label">
-              <label for="updated_duration" class="form-label">HALL TYPE</label>
+              <label for="updated_duration" class="form-label">DURATION MINUTES</label>
             </div>
             <input type="text" class="form-control" id="updated_duration">
           </div>
 
           <div class="mb-4 box-container">
             <div class="box-label">
-              <label for="updated_release" class="form-label">HALL TYPE</label>
+              <label for="updated_release" class="form-label">RELEASE DATE</label>
             </div>
             <input type="text" class="form-control" id="updated_release">
           </div>
 
           <div class="mb-4 box-container">
             <div class="box-label">
-              <label for="updated_language" class="form-label">HALL TYPE</label>
+              <label for="updated_language" class="form-label">LANGUAGE</label>
             </div>
             <input type="text" class="form-control" id="updated_language">
           </div>
@@ -172,19 +162,19 @@
 
           <div class="mb-4 box-container">
             <div class="box-label">
-              <label for="updated_cast" class="form-label">HALL TYPE</label>
+              <label for="updated_cast" class="form-label">CAST</label>
             </div>
             <input type="text" class="form-control" id="updated_cast">
           </div>
           <div class="mb-4 box-container">
             <div class="box-label">
-              <label for="updated_trailer" class="form-label">HALL TYPE</label>
+              <label for="updated_trailer" class="form-label">TRAILER</label>
             </div>
             <input type="text" class="form-control" id="updated_trailer">
           </div>
 
           <div class="mb-3">
-            <label for="edit_image" class="form-label">Room Image (Optional)</label>
+            <label for="edit_image" class="form-label"> Image (Optional)</label>
             <input type="file" class="form-control" id="edit_image" accept="image/*">
             <small  class="text-muted">Leave empty to keep current image</small>
           </div>
@@ -209,8 +199,8 @@
     <td>RELEASE DATE</td>
     <td>LANGUAGE</td>
     <td>CAST</td>
-    <td>IMAGE</td>
     <td>TRAILER</td>
+    <td>IMAGE</td>
 
 
     <td>Update</td>

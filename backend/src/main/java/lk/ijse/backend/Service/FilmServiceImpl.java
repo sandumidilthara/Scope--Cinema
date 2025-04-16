@@ -1,5 +1,6 @@
 package lk.ijse.backend.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lk.ijse.backend.DTO.FilmDTO;
 import lk.ijse.backend.DTO.FilmHallDTO;
@@ -7,6 +8,7 @@ import lk.ijse.backend.Entity.Film;
 import lk.ijse.backend.Entity.FilmHall;
 import lk.ijse.backend.enums.ImageType;
 import lk.ijse.backend.repo.FilmHallRepo;
+import lk.ijse.backend.repo.FilmRegistrationRepo;
 import lk.ijse.backend.repo.FilmRepo;
 import lk.ijse.backend.util.ImageUtil;
 import org.hibernate.StaleObjectStateException;
@@ -71,6 +73,8 @@ public class FilmServiceImpl implements FilmService {
 
     @Autowired
     private FilmRepo filmRepo;
+    @Autowired
+    private FilmRegistrationRepo filmRegistrationRepo;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -117,13 +121,32 @@ public class FilmServiceImpl implements FilmService {
         return filmDTOs;
     }
 
-    @Override
-    public void delete(UUID id) {
-        if (filmRepo.existsById(id)) {
-            filmRepo.deleteById(id);
-        } else {
-            throw new RuntimeException("Film Hall does not exists");
-        }
+//    @Override
+//    public void delete(UUID id) {
+//        if (filmRepo.existsById(id)) {
+//            filmRepo.deleteById(id);
+//        } else {
+//            throw new RuntimeException("Film Hall does not exists");
+//        }
+//    }
+
+//@Override
+//   // @Transactional
+//    public void delete(UUID filmId) {
+//        Film film = filmRepo.findById(filmId)
+//                .orElseThrow(() -> new EntityNotFoundException("Film not found"));
+//
+//        film.removeFilmRegistrations();
+//        filmRepo.save(film); // Save the disassociation
+//        filmRepo.delete(film); // Now safe to delete
+//    }
+
+    public void delete(UUID filmId) {
+        // First delete all related film registrations
+        filmRegistrationRepo.deleteAllByFilmId(filmId);
+
+        // Then delete the film
+        filmRepo.deleteById(filmId);
     }
 
     @Override

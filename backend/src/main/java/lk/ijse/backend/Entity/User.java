@@ -1,70 +1,65 @@
 package lk.ijse.backend.Entity;
 
-
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.UUID;
+
 
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(updatable = false, nullable = false)
+    private UUID userId;
 
-    @Column(unique = true, nullable = false)
-    private String username;
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false, unique = true)
+    private String contact;
+
 
     @Column(nullable = false)
     private String password;
 
-    @Column(unique = true, nullable = false)
-    private String email;
-
-    @Column(name = "rolw")
-    private String role;
-
-    @ManyToOne
-    @JoinColumn(name = "film_id")
-    private Film film;
+    @Column(nullable = false)
+    private String role; // ADMIN, CUSTOMER, MANAGER
 
 
-    // Constructors
-    public User() {
-    }
-
-    public User(String username, String password, String email,  String role) {
-        this.username = username;
-        this.password = password;
+    public User(UUID userId, String name, String email, String contact, String password, String role) {
+        this.userId = userId;
+        this.name = name;
         this.email = email;
+        this.contact = contact;
+        this.password = password;
         this.role = role;
     }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    public User() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public String getUsername() {
-        return username;
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getName() {
+        return name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -75,17 +70,21 @@ public class User {
         this.email = email;
     }
 
-
-    public Film getFilm() {
-        return film;
+    public String getContact() {
+        return contact;
     }
 
-    public void setFilm(Film film) {
-        this.film = film;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
-
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getRole() {
         return role;
@@ -93,29 +92,5 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(username, user.username);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", role=" + role +
-                '}';
     }
 }

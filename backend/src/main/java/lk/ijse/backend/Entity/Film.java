@@ -49,9 +49,22 @@ public class Film {
     @Column( name = "trailer")
     private String trailerUrl;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<FilmRegistration> filmRegistrationLists;
+
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "film", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = false)
     private List<FilmRegistration> filmRegistrationLists;
 
+    // Add a method to handle deletions manually
+    public void removeFilmRegistrations() {
+        if (filmRegistrationLists != null) {
+            filmRegistrationLists.forEach(fr -> {
+                fr.setFilm(null);
+            });
+            filmRegistrationLists.clear();
+        }
+    }
     // Constructors
     public Film() {
     }

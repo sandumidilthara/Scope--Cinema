@@ -6,6 +6,7 @@ import lk.ijse.backend.DTO.FilmHallDTO;
 import lk.ijse.backend.Entity.Film;
 import lk.ijse.backend.Entity.FilmHall;
 import lk.ijse.backend.repo.FilmHallRepo;
+import lk.ijse.backend.repo.FilmRegistrationRepo;
 import lk.ijse.backend.util.ImageUtil;
 import org.hibernate.StaleObjectStateException;
 import org.modelmapper.ModelMapper;
@@ -25,6 +26,9 @@ public class FilmHallServiceImpl implements FilmHallService {
     private static final Logger logger = LoggerFactory.getLogger(FilmHallServiceImpl.class);
     @Autowired
     private FilmHallRepo filmHallRepo;
+
+    @Autowired
+    private FilmRegistrationRepo filmRegistrationRepo;
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
@@ -63,13 +67,21 @@ public class FilmHallServiceImpl implements FilmHallService {
 
 
 
-    @Override
-    public void delete(UUID id) {
-        if(filmHallRepo.existsById(id)){filmHallRepo.deleteById(id);
-        }
-        else {
-            throw new RuntimeException("Film Hall does not exists");
-        }
+//    @Override
+//    public void delete(UUID id) {
+//        if(filmHallRepo.existsById(id)){filmHallRepo.deleteById(id);
+//        }
+//        else {
+//            throw new RuntimeException("Film Hall does not exists");
+//        }
+//    }
+
+    public void delete(UUID filmId) {
+        // First delete all related film registrations
+        filmRegistrationRepo.deleteAllByFilmHallId(filmId);
+
+        // Then delete the film
+        filmHallRepo.deleteById(filmId);
     }
 
     @Override

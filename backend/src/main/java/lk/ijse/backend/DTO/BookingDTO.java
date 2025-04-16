@@ -30,14 +30,16 @@ public class BookingDTO {
 
 
     private String seat;
+    private String email;
 
-    public BookingDTO(Long id, LocalDate bookingDate, String film, String filmHall, String time, String seat) {
+    public BookingDTO(Long id, LocalDate bookingDate, String film, String filmHall, String time, String seat,String email) {
         this.id = id;
         this.bookingDate = bookingDate;
         this.film = film;
         this.filmHall = filmHall;
         this.time = time;
         this.seat = seat;
+        this.email = email;
     }
 
     public BookingDTO() {
@@ -91,6 +93,11 @@ public class BookingDTO {
         this.seat = seat;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
-
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

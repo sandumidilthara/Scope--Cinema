@@ -1,6 +1,6 @@
 let bookingValues;
 let seatidentify;
-let id =1;
+let id =3;
 
 
 function createSeatMap() {
@@ -109,6 +109,43 @@ colouringSeats()
 
 function booking() {
 
+    // Get email and contact values from input fields
+    const email = document.getElementById('email').value;
+    const contact = document.getElementById('contact').value;
+
+    // Validate inputs are not empty
+    if (!email || !contact) {
+      alert("Please enter both email and contact number");
+      return;
+    }
+
+    // First check if the user exists
+  $.ajax({
+    url: 'http://localhost:8080/api/v1/user/getAll',
+    type: "GET",
+    success: (response) => {
+      // Flag to track if user is found
+      let userFound = false;
+
+      // Check if user exists in the system
+      if (response && response.data && Array.isArray(response.data)) {
+        for (let i = 0; i < response.data.length; i++) {
+          const user = response.data[i];
+          // Check if the user email and contact match
+          if (user.email === email && user.contact === contact) {
+            userFound = true;
+            break;
+          }
+        }
+      }
+
+        // If user not found, redirect to signup
+        if (!userFound) {
+          alert("You must register first");
+          window.location.href = "SignUp.html";
+          return;
+        }
+
 
   console.log("===================")
   console.log(bookingValues);
@@ -133,7 +170,8 @@ bookingDate: date,
     film:  film,
     filmHall:  filmHall,
      time:  time,
-     seat: seat
+     seat: seat,
+    email :email
   };
 
 
@@ -147,7 +185,7 @@ bookingDate: date,
     contentType:"application/json",
     success:(res) =>{
 id++;
-      console.log(res)
+      alert("successfully booked")
     },
     errors:(err) =>{
       console.log(err)
@@ -157,7 +195,7 @@ id++;
 
 
 
-}
+} })}
 
 
 function colouringSeats() {

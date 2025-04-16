@@ -38,13 +38,18 @@ public class Booking {
     @Column(name = "seatNumber")
     private String seat;
 
-    public Booking( Long id ,LocalDate bookingDate, String film, String filmHall, String time, String seat) {
+
+    @Column(name = "Customeremail")
+    private String email;
+
+    public Booking( Long id ,LocalDate bookingDate, String film, String filmHall, String time, String seat,String email) {
         this.id = id;
         this.bookingDate = bookingDate;
         this.film = film;
         this.filmHall = filmHall;
         this.time = time;
         this.seat = seat;
+        this.email = email;
     }
 
 
@@ -100,5 +105,11 @@ public class Booking {
         this.seat = seat;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

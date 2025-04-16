@@ -1,208 +1,323 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scope Cinemas</title>
-  <!-- Bootstrap CSS -->
+  <title>Seat Selection - Scope Cinemas</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
-    body {
-      background-color: #121212;
+    .navbar-custom {
+      background-color: #0c0c2f;
+    }
+    .navbar-custom .nav-link {
       color: white;
-    }
-    .navbar {
-      background-color: #1a1a1a;
-    }
-    .navbar-brand {
-      color: white;
-      font-weight: bold;
-    }
-    .nav-link {
-      color: #888 !important;
       margin-right: 15px;
     }
-    .nav-link:hover {
-      color: white !important;
+    .navbar-custom .nav-link:hover {
+      color: #f8f9fa;
     }
-    .btn-tickets {
-      background-color: #ff0058;
+    .booking-info {
+      background-color: #f4f4f4;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .booking-info-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .booking-info-item {
+      flex: 1;
+      min-width: 200px;
+      background-color: white;
+      border-radius: 5px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .booking-info-item h5 {
+      color: #0c0c2f;
+      margin-bottom: 8px;
+    }
+    .btn-purple {
+      background-color: #4a148c;
       color: white;
     }
-    .carousel-item img {
-      max-height: 500px;
-      object-fit: cover;
+    .btn-purple:hover {
+      background-color: #6a1b9a;
+      color: white;
     }
-    .movie-card {
-      background-color: #1e1e1e;
-      border: none;
+    #seat-map {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .seat-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    .seat-label {
+      width: 30px;
+      text-align: right;
+      margin-right: 10px;
+      color: #6c757d;
+    }
+    .seat {
+      width: 40px;
+      height: 40px;
+      margin: 2px;
+      border: 1px solid #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .available { background-color: white; }
+    .reserved { background-color: red; color: white; }
+    .selected { background-color: blue; color: white; }
+    .unavailable { background-color: pink; }
+    .screen {
+      width: 100%;
+      height: 50px;
+      background-color: #333;
+      color: white;
+      text-align: center;
+      line-height: 50px;
       margin-bottom: 20px;
     }
-    .deals-card {
-      background-color: #1e1e1e;
-      margin-bottom: 20px;
-    }
-    .deals-card img {
-      max-height: 200px;
-      object-fit: cover;
+    .aisle-space {
+      width: 40px;
+      border-right: 2px solid #dee2e6;
+      margin-right: 10px;
     }
   </style>
 </head>
 <body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">SCOPE CINEMAS</a>
+    <a class="navbar-brand text-white" href="#"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link active" href="#">HOME</a></li>
-        <li class="nav-item"><a class="nav-link" href="show.html">MOVIES</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">LOCATIONS</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">DEALS AND EXCLUSIVES</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">ADVERTISE</a></li>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="home.html">HOME</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="movies.html">MOVIES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="location.html">LOCATIONS</a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">DEALS AND EXCLUSIVES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">ADVERTISE</a>
+        </li>
       </ul>
       <div class="d-flex">
-        <button class="btn btn-tickets me-2">BUY TICKETS</button>
-        <button class="btn btn-outline-light">LOGIN</button>
+        <a href="booking.html" class="btn btn-purple me-2">BUY TICKETS</a>
+        <a href="login.html" class="btn btn-outline-light">LOGIN</a>
       </div>
     </div>
   </div>
 </nav>
 
-<!-- Now Showing Carousel -->
-<div class="container-fluid mt-4">
-  <h2 class="mb-3">NOW SHOWING</h2>
-  <div id="nowShowingCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card movie-card">
-              <img src="/api/placeholder/400/600" class="card-img-top" alt="Movie 1">
-              <div class="card-body">
-                <h5 class="card-title">Nelum Kuluna</h5>
-                <p class="card-text">Adults Only</p>
-                <div class="d-flex justify-content-between">
-                  <a href="#" class="btn btn-tickets">Buy Tickets Online</a>
-                  <a href="#" class="btn btn-outline-light">Watch Trailer</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card movie-card">
-              <img src="/api/placeholder/400/600" class="card-img-top" alt="Movie 2">
-              <div class="card-body">
-                <h5 class="card-title">Babygirl</h5>
-                <div class="d-flex justify-content-between">
-                  <a href="#" class="btn btn-tickets">Buy Tickets Online</a>
-                  <a href="#" class="btn btn-outline-light">Watch Trailer</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card movie-card">
-              <img src="/api/placeholder/400/600" class="card-img-top" alt="Movie 3">
-              <div class="card-body">
-                <h5 class="card-title">Captain America</h5>
-                <div class="d-flex justify-content-between">
-                  <a href="#" class="btn btn-tickets">Buy Tickets Online</a>
-                  <a href="#" class="btn btn-outline-light">Watch Trailer</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="container mt-4">
+  <h2 class="mb-4">Seat Selection</h2>
 
-<!-- Coming Soon Section -->
-<div class="container-fluid mt-4">
-  <h2 class="mb-3">COMING SOON</h2>
+  <!-- Booking Information Section -->
+  <div class="booking-info-container" id="bookingInfoContainer">
+    <!-- Dynamic divs will be added here -->
+  </div>
+
+  <!-- Seat Map Section -->
   <div class="row">
-    <div class="col-md-2 col-sm-4 col-6">
-      <div class="card movie-card">
-        <img src="/api/placeholder/300/450" class="card-img-top" alt="Romeo & Juliet">
-        <div class="card-body">
-          <h6 class="card-title">Romeo & Juliet</h6>
-          <p class="text-muted">25 to 27 APR 2025</p>
-        </div>
-      </div>
+    <div class="col-12 text-center">
+      <div class="screen">SCREEN</div>
     </div>
-    <div class="col-md-2 col-sm-4 col-6">
-      <div class="card movie-card">
-        <img src="/api/placeholder/300/450" class="card-img-top" alt="The Accountant 2">
-        <div class="card-body">
-          <h6 class="card-title">The Accountant 2</h6>
-          <p class="text-muted">In Cinemas 25th April</p>
+  </div>
+
+  <div id="seat-map">
+    <div id="seat-container"></div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12 text-center">
+      <div class="d-inline-block">
+        <div class="d-flex align-items-center mb-2">
+          <div class="seat available me-2"></div>
+          <span>Available</span>
         </div>
-      </div>
-    </div>
-    <div class="col-md-2 col-sm-4 col-6">
-      <div class="card movie-card">
-        <img src="/api/placeholder/300/450" class="card-img-top" alt="Sikandar">
-        <div class="card-body">
-          <h6 class="card-title">Sikandar</h6>
-          <p class="text-muted">In Cinemas 28th March</p>
+        <div class="d-flex align-items-center mb-2">
+          <div class="seat reserved me-2"></div>
+          <span>Reserved</span>
         </div>
-      </div>
-    </div>
-    <div class="col-md-2 col-sm-4 col-6">
-      <div class="card movie-card">
-        <img src="/api/placeholder/300/450" class="card-img-top" alt="L2: Empuraan">
-        <div class="card-body">
-          <h6 class="card-title">L2: Empuraan</h6>
-          <p class="text-muted">In Cinemas 28th March</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-2 col-sm-4 col-6">
-      <div class="card movie-card">
-        <img src="/api/placeholder/300/450" class="card-img-top" alt="Kaputu Koho">
-        <div class="card-body">
-          <h6 class="card-title">Kaputu Koho</h6>
-          <p class="text-muted">In Cinemas 28th March</p>
+        <div class="d-flex align-items-center">
+          <div class="seat selected me-2"></div>
+          <span>Selected</span>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<!-- Deals & Exclusive Section -->
-<div class="container-fluid mt-4">
-  <h2 class="mb-3">DEALS & EXCLUSIVE</h2>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card deals-card">
-        <img src="/api/placeholder/600/300" class="card-img-top" alt="IMAX Deal">
-        <div class="card-body">
-          <h5 class="card-title">Buy One Get One Free on IMAX Tickets</h5>
-          <p class="card-text">+ Free Regular Popcorn for Commercial Bank Credit Cardholders</p>
-          <a href="#" class="btn btn-tickets">More Info</a>
-        </div>
-      </div>
+  <div class="row mt-4 mb-5">
+    <div class="form-group" style="margin-bottom: 5px; width: 40%;">
+      <i class="icon-user"></i>
+      <input id="email" type="text" placeholder="Enter your email" required style="width: 100%; padding: 10px; margin-left: 5px;">
     </div>
-    <div class="col-md-6">
-      <div class="card deals-card">
-        <img src="/api/placeholder/600/300" class="card-img-top" alt="HSBC Deal">
-        <div class="card-body">
-          <h5 class="card-title">Exclusive Offer for HSBC Live+ Credit Card Holders</h5>
-          <p class="card-text">Buy One Movie Ticket</p>
-          <a href="#" class="btn btn-tickets">More Info</a>
-        </div>
-      </div>
+    <div class="form-group" style="margin-bottom: 5px; width: 40%;">
+      <i class="icon-user"></i>
+      <input id="contact" type="text" placeholder="Enter your phone number" required style="width: 100%; padding: 10px; margin-left: 5px;">
+    </div>
+    <div class="col-12 d-flex justify-content-between" style="margin-top: 1px;">
+      <!-- Additional content can go here -->
     </div>
   </div>
-</div>
 
-<!-- Bootstrap JS and Popper.js -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  <button id="continueButton" class="btn btn-purple" onclick="booking()">Continue</button>
+</div>
+</div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Retrieve values from localStorage
+    const selectedFilm = localStorage.getItem('selectedFilm') || 'Not selected';
+    const selectedHall = localStorage.getItem('selectedHall') || 'Not selected';
+    const selectedDate = localStorage.getItem('selectedDate') || 'Not selected';
+    const selectedTime = localStorage.getItem('selectedTime') || 'Not selected';
+
+    // Create the booking info container
+    const bookingInfoContainer = document.getElementById('bookingInfoContainer');
+
+    // Create and append 4 divs with the booking information
+    const infoItems = [
+      { label: 'Movie', value: selectedFilm, icon: 'fas fa-film' },
+      { label: 'Cinema', value: selectedHall, icon: 'fas fa-building' },
+      { label: 'Date', value: selectedDate, icon: 'far fa-calendar-alt' },
+      { label: 'Time', value: selectedTime, icon: 'far fa-clock' }
+    ];
+
+    infoItems.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'booking-info-item';
+      div.innerHTML = `
+        <h5><i class="${item.icon} me-2"></i>${item.label}</h5>
+        <p class="mb-0">${item.value}</p>
+      `;
+      bookingInfoContainer.appendChild(div);
+    });
+
+    // Initialize seat map
+    // createSeatMap();
+  });
+
+  // Seat map functionality
+  const rowLetters = ['L', 'K', 'J', 'I', 'H', 'G'];
+  const rowLettersWithFullColumns = ['L', 'K'];
+  const seats = {
+    'K': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13',  ],
+    'L': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11' ],
+    'default': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13']
+  };
+  const reservedSeats = [
+
+  ];
+
+  console.log("pk" + reservedSeats)
+  let selectedSeats = [];
+
+  function createSeatMap() {
+    const container = document.getElementById('seat-container');
+
+    rowLetters.forEach(row => {
+      const rowElement = document.createElement('div');
+      rowElement.className = 'seat-row';
+
+      const rowLabel = document.createElement('div');
+      rowLabel.className = 'seat-label';
+      rowLabel.textContent = row;
+      rowElement.appendChild(rowLabel);
+
+      // Determine which seats to use based on the row
+      const rowSeats = rowLettersWithFullColumns.includes(row) ? seats[row] : seats['default'];
+
+      rowSeats.forEach((seat, index) => {
+        // Add aisle space after the 3rd seat
+        if (index === 3) {
+          const aisleSpace = document.createElement('div');
+          aisleSpace.className = 'aisle-space';
+          rowElement.appendChild(aisleSpace);
+        }
+
+        const seatElement = document.createElement('div');
+        seatElement.className = 'seat';
+        seatElement.textContent = seat;
+
+        const seatId = row + seat;
+        if (reservedSeats.includes(seatId)) {
+          seatElement.classList.add('reserved');
+        } else {
+          seatElement.classList.add('available');
+
+          // Add click event to toggle selection
+          seatElement.addEventListener('click', function() {
+            if (this.classList.contains('available')) {
+              if (this.classList.contains('selected')) {
+                this.classList.remove('selected');
+                // Remove from selected seats array
+                const index = selectedSeats.indexOf(seatId);
+                if (index > -1) {
+                  selectedSeats.splice(index, 1);
+                }
+              } else {
+                this.classList.add('selected');
+                // Add to selected seats array
+                selectedSeats.push(seatId);
+              }
+            }
+          });
+        }
+
+        rowElement.appendChild(seatElement);
+      });
+
+      container.appendChild(rowElement);
+    });
+  }
+
+  // Continue button functionality
+  document.getElementById('continueButton').addEventListener('click', function() {
+    if (selectedSeats.length > 0) {
+      // Store selected seats in localStorage
+      localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+
+      // Navigate to payment page (you can replace this with your actual payment page)
+      alert('Selected seats: ' + selectedSeats.join(', '));
+      // window.location.href = 'payment.html';
+    } else {
+      alert('Please select at least one seat to continue.');
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="js/jquery-3.7.1.min.js"></script>
+
+
+<script src="js/hh.js"></script>
 </body>
 </html>
+
+

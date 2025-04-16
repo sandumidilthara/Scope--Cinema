@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    :root {
+      --dark-blue: #0d1526;
+      --blue: #1a2138;
+      --light-blue: #2a3149;
+      --accent-purple: #a45ee5;
+      --accent-blue: #4dabf7;
+      --text-color: #e1e5ee;
+    }
+
+    body {
+      background-color: var(--dark-blue);
+      color: var(--text-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .sidebar {
+      background-color: var(--dark-blue);
+      height: 100vh;
+      position: fixed;
+      padding-top: 20px;
+      width: 250px;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .main-content {
+      margin-left: 250px;
+      padding: 20px 30px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      padding: 0 20px 20px;
+    }
+
+    .logo-icon {
+      color: var(--accent-purple);
+      font-size: 24px;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .search-bar {
+      background-color: var(--blue);
+      border: none;
+      color: var(--text-color);
+      border-radius: 8px;
+      padding: 10px 15px;
+      width: 90%;
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    .search-bar:focus {
+      outline: none;
+      background-color: var(--light-blue);
+    }
+
+    .nav-item {
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin: 5px 10px;
+      transition: all 0.3s;
+    }
+
+    .nav-item:hover {
+      background-color: var(--light-blue);
+    }
+
+    .nav-item.active {
+      background-color: var(--light-blue);
+    }
+
+    .nav-link {
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-link i {
+      margin-right: 10px;
+      width: 20px;
+    }
+
+    .user-profile {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--accent-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+
+    .user-info {
+      flex-grow: 1;
+    }
+
+    .user-name {
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+
+    .user-role {
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .card {
+      background-color: var(--blue);
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      padding: 20px;
+      position: relative;
+    }
+
+    .stat-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 18px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .stat-label {
+      text-transform: uppercase;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    .percentage {
+      display: inline-flex;
+      align-items: center;
+      font-size: 14px;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .percentage.up {
+      background-color: rgba(0, 200, 83, 0.2);
+      color: #00c853;
+    }
+
+    .percentage.down {
+      background-color: rgba(255, 82, 82, 0.2);
+      color: #ff5252;
+    }
+
+    .percentage i {
+      font-size: 12px;
+      margin-right: 4px;
+    }
+
+    .chart-container {
+      padding: 20px;
+      position: relative;
+    }
+
+    .chart-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .chart-title h5 {
+      margin: 0;
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .legend-color {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-icon {
+      font-size: 20px;
+      color: var(--text-color);
+      opacity: 0.7;
+    }
+
+    .user-header {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-header-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--accent-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+
+    /* Custom charts */
+    .gauge-chart {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 0 auto;
+    }
+
+    .gauge-chart svg {
+      transform: rotate(-90deg);
+      overflow: visible;
+    }
+
+    .gauge-chart circle {
+      fill: none;
+      stroke-width: 20;
+      stroke-linecap: round;
+    }
+
+    .gauge-bg {
+      stroke: rgba(255, 255, 255, 0.1);
+    }
+
+    .gauge-progress-organic {
+      stroke: var(--accent-purple);
+      stroke-dasharray: 565.2;
+      stroke-dashoffset: 113.04; /* 80% filled */
+    }
+
+    .gauge-progress-social {
+      stroke: #4169e1;
+      stroke-dasharray: 565.2;
+      stroke-dashoffset: 226.08; /* 60% filled */
+    }
+
+    .gauge-progress-direct {
+      stroke: var(--accent-blue);
+      stroke-dasharray: 565.2;
+      stroke-dashoffset: 282.6; /* 50% filled */
+    }
+
+    .gauge-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .bar-chart {
+      display: flex;
+      height: 280px;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .bar-group {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      height: 100%;
+      justify-content: flex-end;
+    }
+
+    .bar {
+      width: 100%;
+      border-radius: 4px 4px 0 0;
+    }
+
+    .bar.new {
+      background-color: var(--accent-blue);
+    }
+
+    .bar.subscribers {
+      background-color: #4169e1;
+    }
+
+    .bar.current {
+      background-color: var(--accent-purple);
+    }
+
+    .month-label {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .y-axis {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-size: 12px;
+      opacity: 0.7;
+      text-align: right;
+      padding-right: 10px;
+    }
+
+    #iframe {
+      width: 100%;
+      height: calc(100vh - 40px); /* Adjust as needed to fit the header and other components */
+      border: none;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .revenue-value {
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: 15px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
+    .export-btn {
+      color: var(--text-color);
+      background-color: var(--light-blue);
+      border: none;
+      border-radius: 4px;
+      padding: 5px 15px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .export-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h3>Analytics</h3>
+    <div class="header-right">
+      <div class="dropdown">
+        <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-globe"></i> EN
+        </button>
+      </div>
+      <div class="notification-icon">
+        <i class="fas fa-bell"></i>
+      </div>
+      <div class="user-header">
+        <div class="user-header-avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <span>Mr. John</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Save Products -->
+    <div class="col-md-3">
+      <div class="card stat-card">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="stat-label">
+            <i class="fas fa-heart text-danger"></i> Save Products
+          </div>
+          <div>
+            <i class="fas fa-ellipsis-h stat-icon"></i>
+          </div>
+        </div>
+        <div class="stat-value">50.8K</div>
+        <div class="percentage up">
+          <i class="fas fa-arrow-up"></i> 28.4%
+        </div>
+      </div>
+    </div>
+
+    <!-- Stock Products -->
+    <div class="col-md-3">
+      <div class="card stat-card">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="stat-label">
+            <i class="fas fa-box text-primary"></i> Stock Products
+          </div>
+          <div>
+            <i class="fas fa-ellipsis-h stat-icon"></i>
+          </div>
+        </div>
+        <div class="stat-value">23.6K</div>
+        <div class="percentage down">
+          <i class="fas fa-arrow-down"></i> 12.6%
+        </div>
+      </div>
+    </div>
+
+    <!-- Sale Products -->
+    <div class="col-md-3">
+      <div class="card stat-card">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="stat-label">
+            <i class="fas fa-shopping-bag text-success"></i> Sale Products
+          </div>
+          <div>
+            <i class="fas fa-ellipsis-h stat-icon"></i>
+          </div>
+        </div>
+        <div class="stat-value">756</div>
+        <div class="percentage up">
+          <i class="fas fa-arrow-up"></i> 3.1%
+        </div>
+      </div>
+    </div>
+
+    <!-- Average Revenue -->
+    <div class="col-md-3">
+      <div class="card stat-card">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="stat-label">
+            <i class="fas fa-chart-line text-info"></i> Average Revenue
+          </div>
+          <div>
+            <i class="fas fa-ellipsis-h stat-icon"></i>
+          </div>
+        </div>
+        <div class="stat-value">2.3K</div>
+        <div class="percentage up">
+          <i class="fas fa-arrow-up"></i> 11.3%
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Website Visitors -->
+    <div class="col-md-5">
+      <div class="card">
+        <div class="chart-container">
+          <div class="chart-title">
+            <h5>Website Visitors</h5>
+            <button class="export-btn">
+              Export <i class="fas fa-download"></i>
+            </button>
+          </div>
+
+          <div class="gauge-chart">
+            <svg viewBox="0 0 200 200">
+              <circle class="gauge-bg" cx="100" cy="100" r="90"></circle>
+              <circle class="gauge-progress-organic" cx="100" cy="100" r="90"></circle>
+              <circle class="gauge-progress-social" cx="100" cy="100" r="90"></circle>
+              <circle class="gauge-progress-direct" cx="100" cy="100" r="90"></circle>
+            </svg>
+            <div class="gauge-value">150k</div>
+          </div>
+
+          <div class="chart-legend mt-4">
+            <div class="d-flex justify-content-between">
+              <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--accent-purple);"></div>
+                <span>Organic</span>
+              </div>
+              <span>80%</span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <div class="legend-item">
+                <div class="legend-color" style="background-color: #4169e1;"></div>
+                <span>Social</span>
+              </div>
+              <span>60%</span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <div class="legend-item">
+                <div class="legend-color" style="background-color: var(--accent-blue);"></div>
+                <span>Direct</span>
+              </div>
+              <span>50%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Revenue by customer type -->
+    <div class="col-md-7">
+      <div class="card">
+        <div class="chart-container">
+          <div class="chart-header">
+            <div>
+              <h5>Revenue by customer type</h5>
+              <div class="revenue-value">
+                $240.8K
+                <span class="percentage up">
+                    <i class="fas fa-arrow-up"></i> 14.8%
+                  </span>
+              </div>
+            </div>
+            <div class="d-flex align-items-center">
+              <div class="chart-legend">
+                <div class="legend-item">
+                  <div class="legend-dot" style="background-color: var(--accent-purple);"></div>
+                  <span>Current clients</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background-color: #4169e1;"></div>
+                  <span>Subscribers</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background-color: var(--accent-blue);"></div>
+                  <span>New customers</span>
+                </div>
+              </div>
+              <div class="ms-4">
+                <button class="btn btn-sm btn-dark">Jan 2024</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex mt-4">
+            <div class="y-axis">
+              <div>100K</div>
+              <div>80K</div>
+              <div>60K</div>
+              <div>40K</div>
+              <div>20K</div>
+              <div>0K</div>
+            </div>
+            <div class="bar-chart w-100">
+              <div class="bar-group">
+                <div class="bar new" style="height: 35%;"></div>
+                <div class="bar subscribers" style="height: 15%;"></div>
+                <div class="bar current" style="height: 10%;"></div>
+                <div class="month-label">Jan</div>
+              </div>
+              <div class="bar-group">
+                <div class="bar new" style="height: 25%;"></div>
+                <div class="bar subscribers" style="height: 25%;"></div>
+                <div class="bar current" style="height: 30%;"></div>
+                <div class="month-label">Feb</div>
+              </div>
+              <div class="bar-group">
+                <div class="bar new" style="height: 50%;"></div>
+                <div class="bar subscribers" style="height: 25%;"></div>
+                <div class="bar current" style="height: 20%;"></div>
+                <div class="month-label">Mar</div>
+              </div>
+              <div class="bar-group">
+                <div class="bar new" style="height: 40%;"></div>
+                <div class="bar subscribers" style="height: 20%;"></div>
+                <div class="bar current" style="height: 25%;"></div>
+                <div class="month-label">Apr</div>
+              </div>
+              <div class="bar-group">
+                <div class="bar new" style="height: 30%;"></div>
+                <div class="bar subscribers" style="height: 15%;"></div>
+                <div class="bar current" style="height: 10%;"></div>
+                <div class="month-label">May</div>
+              </div>
+              <div class="bar-group">
+                <div class="bar new" style="height: 45%;"></div>
+                <div class="bar subscribers" style="height: 35%;"></div>
+                <div class="bar current" style="height: 15%;"></div>
+                <div class="month-label">Jun</div>
+              </div>
+              <div class="bar-group">
+                <div class="bar new" style="height: 10%;"></div>
+                <div class="bar subscribers" style="height: 5%;"></div>
+                <div class="bar current" style="height: 5%;"></div>
+                <div class="month-label">Jul</div>
+              </div>
+              <div class="bar-group">
+                <div class="bar new" style="height: 55%;"></div>
+                <div class="bar subscribers" style="height: 20%;"></div>
+                <div class="bar current" style="height: 25%;"></div>
+                <div class="month-label">Aug</div>
+              </div>
+              <div class="bar-group">
+                <div class="bar new" style="height: 35%;"></div>
+                <div class="bar subscribers" style="height: 15%;"></div>
+                <div class="bar current" style="height: 10%;"></div>
+                <div class="month-label">Sep</div>
+              </div>
+              <div class="bar-group">
+                <div class="bar new" style="height: 25%;"></div>
+                <div class="bar subscribers" style="height: 25%;"></div>
+                <div class="bar current" style="height: 5%;"></div>
+                <div class="month-label">Oct</div>
+              </div>
+              <div class="bar-group">
+                <div class="bar new" style="height: 30%;"></div>
+                <div class="bar subscribers" style="height: 10%;"></div>
+                <div class="bar current" style="height: 10%;"></div>
+                <div class="month-label">Nov</div>
+              </div>
+              <div class="bar-group">
+                <div class="bar new" style="height: 40%;"></div>
+                <div class="bar subscribers" style="height: 15%;"></div>
+                <div class="bar current" style="height: 10%;"></div>
+                <div class="month-label">Dec</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

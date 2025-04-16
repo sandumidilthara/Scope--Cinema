@@ -195,7 +195,7 @@ id:  $('#updated_film_id').val(),
 
       releaseDate : $('#updated_release').val(),
       language : $('#updated_language').val(),
-  cast : $('#updated_language').val(),
+  cast : $('#updated_cast').val(),
       trailerUrl : $('#updated_trailer').val()
 
   }));

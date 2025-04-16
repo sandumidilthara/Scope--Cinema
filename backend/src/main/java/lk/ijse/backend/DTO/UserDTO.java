@@ -1,67 +1,47 @@
 package lk.ijse.backend.DTO;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
-
-import java.util.Objects;
+import java.util.UUID;
 
 
 public class UserDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(unique = true, nullable = false)
-    private String username;
-
-    @Column(nullable = false)
-    private String password;
-
-    @Column(unique = true, nullable = false)
+    private UUID userId;
+    private String name;
     private String email;
+    private String contact;
+    private String password;
+    private String role; // ADMIN, HOTEL_OWNER, HOTEL_MANAGER
 
-    @Column(name = "rolw")
-    private String role;
-
-
-    private FilmDTO filmDTO;
-
-
-    // Constructors
-    public UserDTO() {
-    }
-
-    public UserDTO(String username, String password, String email,  String role) {
-        this.username = username;
-        this.password = password;
+    public UserDTO(UUID userId, String name, String email, String contact, String password, String role) {
+        this.userId = userId;
+        this.name = name;
         this.email = email;
+        this.contact = contact;
+        this.password = password;
         this.role = role;
     }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    public UserDTO() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public String getUsername() {
-        return username;
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getName() {
+        return name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -72,17 +52,21 @@ public class UserDTO {
         this.email = email;
     }
 
-
-    public FilmDTO getFilm() {
-        return filmDTO;
+    public String getContact() {
+        return contact;
     }
 
-    public void setFilm(FilmDTO filmDTO) {
-        this.filmDTO = filmDTO;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
-
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getRole() {
         return role;
@@ -90,29 +74,5 @@ public class UserDTO {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserDTO user = (UserDTO) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(username, user.username);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", role=" + role +
-                '}';
     }
 }

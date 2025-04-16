@@ -2,6 +2,7 @@ package lk.ijse.backend.Service;
 
 import lk.ijse.backend.DTO.TimeTableDTO;
 import lk.ijse.backend.Entity.TimeTable;
+import lk.ijse.backend.repo.FilmRegistrationRepo;
 import lk.ijse.backend.repo.TimeTableRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -15,7 +16,8 @@ import java.util.List;
 public class TimeTableServiceImpl implements TimeTableService{
 
 
-
+    @Autowired
+    private FilmRegistrationRepo filmRegistrationRepo;
     @Autowired
     private TimeTableRepo  timeTableRepo;
 
@@ -34,15 +36,21 @@ public class TimeTableServiceImpl implements TimeTableService{
         return modelMapper.map(timeTableRepo.findAll(),new TypeToken<List<TimeTableDTO>>() {}.getType());
     }
 
-    @Override
-    public void delete(Long id) {
-        if(timeTableRepo.existsById(id)){timeTableRepo.deleteById(id);
-        }
-        else {
-            throw new RuntimeException("Film Hall does not exists");
-        }
-    }
+//    @Override
+//    public void delete(Long id) {
+//        if(timeTableRepo.existsById(id)){timeTableRepo.deleteById(id);
+//        }
+//        else {
+//            throw new RuntimeException("Film Hall does not exists");
+//        }
+//    }
+public void delete(Long filmId) {
+    // First delete all related film registrations
+    filmRegistrationRepo.deleteAllByTimeTableId(filmId);
 
+    // Then delete the film
+    timeTableRepo.deleteById(filmId);
+}
     @Override
     public void update(TimeTableDTO timeTableDTO) {
         if(timeTableRepo.existsById(timeTableDTO.getId())){

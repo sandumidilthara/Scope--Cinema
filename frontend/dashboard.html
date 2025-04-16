@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashdark X - Analytics Dashboard</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --dark-blue: #0d1526;
+      --blue: #1a2138;
+      --light-blue: #2a3149;
+      --accent-purple: #a45ee5;
+      --accent-blue: #4dabf7;
+      --text-color: #e1e5ee;
+    }
+
+    body {
+      background-color: var(--dark-blue);
+      color: var(--text-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .sidebar {
+
+       overflow-y: auto;
+      width: 250px;
+      background-color: var(--dark-blue);
+      height: 100vh;
+      position: fixed;
+      padding-top: 10px;
+
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .main-content {
+      margin-left: 250px;
+      padding: 20px 30px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      padding: 0 20px 20px;
+    }
+
+    .logo-icon {
+      color: var(--accent-purple);
+      font-size: 24px;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .search-bar {
+      background-color: var(--blue);
+      border: none;
+      color: var(--text-color);
+      border-radius: 8px;
+      padding: 10px 15px;
+      width: 90%;
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    .search-bar:focus {
+      outline: none;
+      background-color: var(--light-blue);
+    }
+
+    .nav-item {
+
+      border-radius: 8px;
+
+      transition: all 0.3s;
+
+      padding: 10px 15px; /* Adjust padding */
+      margin: 5px 0;
+    }
+
+    .nav-item:hover {
+      background-color: var(--light-blue);
+    }
+
+    .nav-item.active {
+      background-color: var(--light-blue);
+    }
+
+    .nav-link {
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-link i {
+      margin-right: 10px;
+      width: 20px;
+    }
+
+    .user-profile {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--accent-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+
+    .user-info {
+      flex-grow: 1;
+    }
+
+    .user-name {
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+
+    .user-role {
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .card {
+      background-color: var(--blue);
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      padding: 20px;
+      position: relative;
+    }
+
+    .stat-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 18px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .stat-label {
+      text-transform: uppercase;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    .percentage {
+      display: inline-flex;
+      align-items: center;
+      font-size: 14px;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .percentage.up {
+      background-color: rgba(0, 200, 83, 0.2);
+      color: #00c853;
+    }
+
+    .percentage.down {
+      background-color: rgba(255, 82, 82, 0.2);
+      color: #ff5252;
+    }
+
+    .percentage i {
+      font-size: 12px;
+      margin-right: 4px;
+    }
+
+    .chart-container {
+      padding: 20px;
+      position: relative;
+    }
+
+    .chart-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .chart-title h5 {
+      margin: 0;
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .legend-color {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-icon {
+      font-size: 20px;
+      color: var(--text-color);
+      opacity: 0.7;
+    }
+
+    .user-header {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-header-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--accent-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+
+    /* Custom charts */
+    .gauge-chart {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 0 auto;
+    }
+
+    .gauge-chart svg {
+      transform: rotate(-90deg);
+      overflow: visible;
+    }
+
+    .gauge-chart circle {
+      fill: none;
+      stroke-width: 20;
+      stroke-linecap: round;
+    }
+
+    .gauge-bg {
+      stroke: rgba(255, 255, 255, 0.1);
+    }
+
+    .gauge-progress-organic {
+      stroke: var(--accent-purple);
+      stroke-dasharray: 565.2;
+      stroke-dashoffset: 113.04; /* 80% filled */
+    }
+
+    .gauge-progress-social {
+      stroke: #4169e1;
+      stroke-dasharray: 565.2;
+      stroke-dashoffset: 226.08; /* 60% filled */
+    }
+
+    .gauge-progress-direct {
+      stroke: var(--accent-blue);
+      stroke-dasharray: 565.2;
+      stroke-dashoffset: 282.6; /* 50% filled */
+    }
+
+    .gauge-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .bar-chart {
+      display: flex;
+      height: 280px;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .bar-group {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      height: 100%;
+      justify-content: flex-end;
+    }
+
+    .bar {
+      width: 100%;
+      border-radius: 4px 4px 0 0;
+    }
+
+    .bar.new {
+      background-color: var(--accent-blue);
+    }
+
+    .bar.subscribers {
+      background-color: #4169e1;
+    }
+
+    .bar.current {
+      background-color: var(--accent-purple);
+    }
+
+    .month-label {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .y-axis {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-size: 12px;
+      opacity: 0.7;
+      text-align: right;
+      padding-right: 10px;
+    }
+
+    #iframe {
+      width: 100%;
+      height: calc(100vh - 40px); /* Adjust as needed to fit the header and other components */
+      border: none;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .revenue-value {
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: 15px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
+    .export-btn {
+      color: var(--text-color);
+      background-color: var(--light-blue);
+      border: none;
+      border-radius: 4px;
+      padding: 5px 15px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .export-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <div class="logo">
+    <div class="logo-icon">
+      <i class="fas fa-chart-pie"></i>
+    </div>
+    <div class="logo-text">SCOPE CINEMA</div>
+  </div>
+
+  <ul class="nav flex-column">
+    <li class="nav-item" onclick="loadPage('dashboardmain.html')">
+      <a class="nav-link">
+        <i class="fas fa-star"></i> Dashboard
+      </a>
+    </li>
+
+
+    <li class="nav-item" onclick="loadPage('film.html')">
+      <a class="nav-link">
+        <i class="fas fa-star"></i> Film
+      </a>
+    </li>
+
+
+    <li class="nav-item" onclick="loadPage('index.html')">
+      <a class="nav-link">
+        <i class="fas fa-star"></i> Film Hall
+      </a>
+    </li>
+    <li class="nav-item" onclick="loadPage('seatType.html')">
+      <a class="nav-link">
+        <i class="fas fa-star"></i>  Seat Type
+      </a>
+    </li>
+
+    <li class="nav-item" onclick="loadPage('seat.html')">
+      <a class="nav-link">
+        <i class="fas fa-star"></i>  Seat
+      </a>
+    </li>
+
+    <li class="nav-item" onclick="loadPage('timeTable.html')">
+      <a class="nav-link">
+        <i class="fas fa-star"></i>  Time Table
+      </a>
+    </li>
+    <li class="nav-item" onclick="loadPage('UpcomingFilm.html')">
+      <a class="nav-link">
+        <i class="fas fa-star"></i>  Upcoming Films
+      </a>
+    </li>
+
+    <li class="nav-item" onclick="loadPage(' filmRegistration.html')">
+      <a class="nav-link">
+        <i class="fas fa-star"></i>  Film Registration
+      </a>
+    </li>
+    <li class="nav-item" onclick="loadPage('AdminUser.html')">
+      <a class="nav-link">
+        <i class="fas fa-star"></i>   User
+      </a>
+    </li>
+    <li class="nav-item" onclick="loadPage('')">
+      <a class="nav-link">
+        <i class="fas fa-star"></i>   Payment
+      </a>
+    </li>
+
+
+    <li class="nav-item" onclick="loadPage('')">
+      <a class="nav-link">
+        <i class="fas fa-star"></i>   Booking
+      </a>
+    </li>
+
+
+    <li class="nav-item">
+    <a class="nav-link" href="home.html">
+      <i class="fas fa-plug"></i>  Log Out
+    </a>
+    </li>
+  </ul>
+
+
+</div>
+
+<!-- Main Content -->
+<div class="main-content"  id="main-content">
+
+
+    <iframe id="content-frame" src="dashboardmain.html" style="width:100%; height:calc(100vh - 80px); border:none;"></iframe>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery-3.7.1.min.js"></script>
+<script>
+
+    function loadPage(page) {
+    document.getElementById('content-frame').src = page;
+
+    // Remove active class from all links
+    const links = document.querySelectorAll('.nav-item');
+    links.forEach(link => {
+    link.classList.remove('active');
+  });
+
+    // Add active class to clicked link
+    const activeLink = Array.from(links).find(link => link.textContent.includes(page.split('.')[0].charAt(0).toUpperCase() + page.split('.')[0].slice(1)));
+    if (activeLink) {
+    activeLink.classList.add('active');
+  }
+
+
+      document.addEventListener('DOMContentLoaded', function() {
+        // Code to load the dashboard.html
+        window.location.href = 'dashboardmain.html';
+      });
+  }
+</script>
+</body>
+
+</html>
+
